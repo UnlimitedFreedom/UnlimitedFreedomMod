@@ -234,7 +234,7 @@ public class TFM_PlayerData
             @Override
             public void run()
             {
-                TFM_Util.adminAction("TotalFreedom", "Unfreezing " + player.getName(), false);
+                TFM_Util.adminAction("UnlimitedFreedom", "Unfreezing " + player.getName(), false);
                 setFrozen(false);
             }
 
