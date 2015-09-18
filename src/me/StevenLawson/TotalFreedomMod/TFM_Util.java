@@ -322,7 +322,7 @@ public class TFM_Util
 
                         block.setType(material);
                     }
-                    else // Darth mode
+                    else // Pinch mode
                     {
                         if (Math.abs(xOffset) == length && Math.abs(yOffset) == length && Math.abs(zOffset) == length)
                         {
@@ -333,7 +333,7 @@ public class TFM_Util
                         block.setType(Material.SKULL);
                         final Skull skull = (Skull) block.getState();
                         skull.setSkullType(SkullType.PLAYER);
-                        skull.setOwner("Prozza");
+                        skull.setOwner("AwesomePinch");
                         skull.update();
                     }
                 }
