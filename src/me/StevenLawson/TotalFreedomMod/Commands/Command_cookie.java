@@ -29,7 +29,7 @@ public class Command_cookie extends TFM_Command
             output.append(ChatColor.COLOR_CHAR).append(Integer.toHexString(1 + random.nextInt(14))).append(word).append(" ");
         }
 
-        final ItemStack heldItem = new ItemStack(Material.CAKE);
+        final ItemStack heldItem = new ItemStack(Material.COOKIE);
         final ItemMeta heldItemMeta = heldItem.getItemMeta();
         heldItemMeta.setDisplayName((new StringBuilder()).append(ChatColor.WHITE).append("The ").append(ChatColor.BLACK).append("Cookie").toString());
         heldItem.setItemMeta(heldItemMeta);
