@@ -71,7 +71,7 @@ public class TFM_Util
 <<<<<<< Updated upstream
     public static final List<String> UF_DEVELOPERS = Arrays.asList("tylerhyperHD");
 =======
-    public static final List<String> UF_DEVELOPERS = Arrays.asList("AwesomePinch", "tylerhyperHD", "Pattytothewatty");
+    public static final List<String> UF_DEVELOPERS = Arrays.asList("tylerhyperHD", "Pattytothewatty");
 >>>>>>> Stashed changes
     private static final Random RANDOM = new Random();
     public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
