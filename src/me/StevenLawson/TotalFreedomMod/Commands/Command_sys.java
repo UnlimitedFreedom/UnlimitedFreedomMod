@@ -18,20 +18,16 @@ public class Command_sys extends TFM_Command
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        if (!TFM_ConfigEntry.SERVER_OWNERS.getList().contains(sender.getName()) && !TFM_Util.DEVELOPERS.contains(sender.getName()))
+        if (!TFM_AdminList.isSuperAdmin(sender))
         {
             sender.sendMessage(ChatColor.YELLOW + "You do not have permission to this command.");
-            TFM_Util.adminAction("WARNING: " + sender.getName(), "Has attempted to use a system admin only command. System administration team has been alerted.", true);
-
-            if (!senderIsConsole)
-            {
-                sender.setOp(false);
-            }
-            else
-            {
-                sender.sendMessage("You are not a System Admin and may NOT use this command. If you feel this in error please contact a Developer.");
-            }
-
+            Bukkit.broadcastMessage(ChatColor.RED + "WARNING: " + sender.getName() + " has attempted to use a system admin only command. System administration team has been alerted.");
+            return true;
+        }
+        if (!TFM_ConfigEntry.SERVER_OWNERS.getList().contains(sender.getName()) && !TFM_Util.UF_DEVELOPERS.contains(sender.getName()))
+        {
+            sender.sendMessage(ChatColor.YELLOW + "You do not have permission to this command.");
+            Bukkit.broadcastMessage(ChatColor.RED + "WARNING: " + sender.getName() + " has attempted to use a system admin only command. System administration team has been alerted.");
             return true;
         }
 
@@ -48,10 +44,8 @@ public class Command_sys extends TFM_Command
         {
             if (args[0].equalsIgnoreCase("saadd"))
             {
-                Player player = null;
+                Player player = getPlayer(args[1]);
                 String playername = null;
-
-                player = getPlayer(args[1]);
 
                 if (player != null)
                 {
@@ -68,9 +62,7 @@ public class Command_sys extends TFM_Command
 
             else if (args[0].equalsIgnoreCase("sadelete") || args[0].equalsIgnoreCase("del") || args[0].equalsIgnoreCase("remove"))
             {
-
                 String targetName = args[1];
-
                 targetName = getPlayer(targetName).getName();
 
                 if (!TFM_AdminList.getLowercaseSuperNames().contains(targetName.toLowerCase()))

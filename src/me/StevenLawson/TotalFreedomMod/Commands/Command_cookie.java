@@ -2,7 +2,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import java.util.Random;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
-import org.bukkit.Achievement;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -15,7 +15,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 @CommandParameters(description = "For the people that are still alive.", usage = "/<command>")
 public class Command_cookie extends TFM_Command
 {
-    public static final String COOKIE_LYRICS = "You have been a good person. Here, have some cookies.";
+
+    public static final String COOKIE_LYRICS = "But there's no sense crying over every mistake. You just keep on trying till you run out of cookies.";
     private final Random random = new Random();
 
     @Override
@@ -31,10 +32,9 @@ public class Command_cookie extends TFM_Command
 
         final ItemStack heldItem = new ItemStack(Material.COOKIE);
         final ItemMeta heldItemMeta = heldItem.getItemMeta();
-        heldItemMeta.setDisplayName((new StringBuilder()).append(ChatColor.WHITE).append("The ").append(ChatColor.BLACK).append("Cookie").toString());
         heldItem.setItemMeta(heldItemMeta);
 
-        for (final Player player : server.getOnlinePlayers())
+        for (final Player player : Bukkit.getOnlinePlayers())
         {
             final int firstEmpty = player.getInventory().firstEmpty();
             if (firstEmpty >= 0)

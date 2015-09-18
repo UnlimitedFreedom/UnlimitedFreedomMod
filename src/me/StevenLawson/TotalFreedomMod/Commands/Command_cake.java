@@ -1,6 +1,7 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
 import java.util.Random;
+import me.StevenLawson.TotalFreedomMod.FOPM_TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import org.bukkit.Achievement;
 import org.bukkit.ChatColor;
@@ -41,8 +42,7 @@ public class Command_cake extends TFM_Command
             {
                 player.getInventory().setItem(firstEmpty, heldItem);
             }
-
-            player.awardAchievement(Achievement.BAKE_CAKE);
+            FOPM_TFM_Util.randomAchievement();
         }
 
         TFM_Util.bcastMsg(output.toString());

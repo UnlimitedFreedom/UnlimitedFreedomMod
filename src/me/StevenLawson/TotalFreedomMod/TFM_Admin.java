@@ -13,6 +13,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class TFM_Admin
 {
+
     private final UUID uuid;
     private String lastLoginName;
     private final String loginMessage;

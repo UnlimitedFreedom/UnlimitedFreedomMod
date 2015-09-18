@@ -897,7 +897,7 @@ public class TFM_PlayerListener implements Listener
             }
         }
     }
-    
+
     public static void afterNameSet(final Player player)
     {
         new BukkitRunnable()

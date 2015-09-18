@@ -14,7 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-public class FOPM_TFM_Util {
+public class FOPM_TFM_Util
+{
 // Uses extremely old FOPM changes to the TFM
 
     public static final List<ChatColor> COLOURS = Arrays.asList(
@@ -71,64 +72,82 @@ public class FOPM_TFM_Util {
 
     public static Random random = new Random();
 
-    public static boolean inGod(Player player) {
+    public static boolean inGod(Player player)
+    {
         return TFM_PlayerData.getPlayerData(player).inGod();
     }
 
-    public static void setGod(Player player, boolean enabled) {
+    public static void setGod(Player player, boolean enabled)
+    {
         TFM_PlayerData.getPlayerData(player).setGod(enabled);
     }
 
-    public static boolean isHighRank(Player player) {
+    public static boolean isHighRank(Player player)
+    {
         String name = player.getName();
-        if (name.equals("tylerhyperHD") || UF_DEVELOPERS.contains(name) || TFM_ConfigEntry.SERVER_OWNERS.getList().contains(name)) {
+        if (name.equals("tylerhyperHD") || UF_DEVELOPERS.contains(name) || TFM_ConfigEntry.SERVER_OWNERS.getList().contains(name))
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
 
-    public static boolean isHighRank(CommandSender sender) {
-        if (!(sender instanceof Player)) {
+    public static boolean isHighRank(CommandSender sender)
+    {
+        if (!(sender instanceof Player))
+        {
             return true;
         }
         return isHighRank((Player) sender);
     }
 
-    public static void DevChatMessage(CommandSender sender, String message, boolean senderIsConsole) {
+    public static void DevChatMessage(CommandSender sender, String message, boolean senderIsConsole)
+    {
         String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
         TFM_Log.info("[Dev Chat] " + name + ": " + message);
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getName().equals("tylerhyperHD") || UF_DEVELOPERS.contains(player.getName()) || TFM_ConfigEntry.SERVER_OWNERS.getList().contains(player.getName())) {
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (player.getName().equals("tylerhyperHD") || UF_DEVELOPERS.contains(player.getName()) || TFM_ConfigEntry.SERVER_OWNERS.getList().contains(player.getName()))
+            {
                 player.sendMessage(ChatColor.AQUA + "[" + ChatColor.DARK_PURPLE + "Dev Chat" + ChatColor.AQUA + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.RED + message);
             }
         }
     }
 
-    public static void TelnetAdminChatMessage(CommandSender sender, String message, boolean senderIsConsole) {
+    public static void TelnetAdminChatMessage(CommandSender sender, String message, boolean senderIsConsole)
+    {
         String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
         TFM_Log.info("[Telnet Admin Chat] " + name + ": " + message);
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (TFM_AdminList.isTelnetAdmin(player)) {
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (TFM_AdminList.isTelnetAdmin(player))
+            {
                 player.sendMessage(ChatColor.GRAY + "[" + ChatColor.DARK_GREEN + "Telnet Chat" + ChatColor.GRAY + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.RED + message);
             }
         }
     }
 
-    public static void SeniorAdminChatMessage(CommandSender sender, String message, boolean senderIsConsole) {
+    public static void SeniorAdminChatMessage(CommandSender sender, String message, boolean senderIsConsole)
+    {
         String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
         TFM_Log.info("[Senior-Admin] " + name + ": " + message);
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (TFM_AdminList.isSeniorAdmin(player)) {
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (TFM_AdminList.isSeniorAdmin(player))
+            {
                 player.sendMessage(ChatColor.AQUA + "[" + ChatColor.RED + "SrA Chat" + ChatColor.AQUA + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.RED + message);
             }
         }
     }
 
-    public static void asciiDog() {
+    public static void asciiDog()
+    {
         //This was VERY annoying to make!
         TFM_Util.bcastMsg("                     ,", TFM_Util.randomChatColor());
         TFM_Util.bcastMsg("                ,.  | \\ ", TFM_Util.randomChatColor());
@@ -154,7 +173,8 @@ public class FOPM_TFM_Util {
         TFM_Util.bcastMsg("                          ;  ``::.    ::::::: ", TFM_Util.randomChatColor());
     }
 
-    public static void asciiHorse() {
+    public static void asciiHorse()
+    {
         TFM_Util.bcastMsg(TFM_Util.randomChatColor() + ",  ,.~\"\"\"\"\"~~..");
         TFM_Util.bcastMsg(TFM_Util.randomChatColor() + " )\\,)\\`-,       `~._                                     .--._");
         TFM_Util.bcastMsg(TFM_Util.randomChatColor() + " \\  \\ | )           `~._                   .-\"\"\"\"\"-._   /     `.");
@@ -183,8 +203,10 @@ public class FOPM_TFM_Util {
         TFM_Util.bcastMsg(TFM_Util.randomChatColor() + "                       /___(                 /___(");
     }
 
-    public static void asciiUnicorn() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
+    public static void asciiUnicorn()
+    {
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
             player.playSound(player.getLocation(), Sound.FIREWORK_TWINKLE, 1.0F, 1.0F);
         }
         TFM_Util.bcastMsg(TFM_Util.randomChatColor() + "                                                         ,/");
@@ -226,44 +248,56 @@ public class FOPM_TFM_Util {
         TFM_Util.bcastMsg(TFM_Util.randomChatColor() + "                         |___\\       \\___:              \\___:");
     }
 
-    public static void spawnMob(Player player, EntityType entity, int amount) {
+    public static void spawnMob(Player player, EntityType entity, int amount)
+    {
         int i = 0;
-        do {
+        do
+        {
             player.getWorld().spawnEntity(player.getLocation(), entity);
             i++;
-        } while (i <= amount);
+        }
+        while (i <= amount);
     }
 
-    public static String getPlayerFromIp(String ip) {
-        for (TFM_Player player : TFM_PlayerList.getAllPlayers()) {
-            if (player.getIps().contains(ip)) {
+    public static String getPlayerFromIp(String ip)
+    {
+        for (TFM_Player player : TFM_PlayerList.getAllPlayers())
+        {
+            if (player.getIps().contains(ip))
+            {
                 return " " + player.getLastLoginName();
             }
         }
         return "";
     }
 
-    public static boolean isDoubleJumper(Player player) {
+    public static boolean isDoubleJumper(Player player)
+    {
         return TFM_PlayerData.getPlayerData(player).isDoubleJumper();
     }
 
-    public static int broadcastMessage(String message) {
+    public static int broadcastMessage(String message)
+    {
         return server.broadcastMessage(message);
     }
 
-    public static void setDoubleJumper(Player player, boolean state) {
+    public static void setDoubleJumper(Player player, boolean state)
+    {
         TFM_PlayerData.getPlayerData(player).setDoubleJumper(state);
     }
 
-    public static ChatColor randomChatColour() {
+    public static ChatColor randomChatColour()
+    {
         return COLOURS.get(random.nextInt(COLOURS.size()));
     }
 
-    public static Achievement randomAchievement() {
+    public static Achievement randomAchievement()
+    {
         return ACHIEVEMENTS.get(random.nextInt(ACHIEVEMENTS.size()));
     }
 
-    public static ChatColor randomChatColor() {
+    public static ChatColor randomChatColor()
+    {
         return randomChatColour();
     }
 }

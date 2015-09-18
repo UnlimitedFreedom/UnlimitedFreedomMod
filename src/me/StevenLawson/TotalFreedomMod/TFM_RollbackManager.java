@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class TFM_RollbackManager
 {
+
     private static final Map<String, List<RollbackEntry>> PLAYER_HISTORY = new HashMap<String, List<RollbackEntry>>();
     private static final List<String> REMOVE_ROLLBACK_HISTORY = new ArrayList<String>();
 
@@ -208,6 +209,7 @@ public class TFM_RollbackManager
 
     public enum EntryType
     {
+
         BLOCK_PLACE("placed"),
         BLOCK_BREAK("broke");
         private final String action;
@@ -226,6 +228,7 @@ public class TFM_RollbackManager
 
     public static class RollbackEntry
     {
+
         // Use of primitives to decrease overhead
         public final String author;
         public final String worldName;

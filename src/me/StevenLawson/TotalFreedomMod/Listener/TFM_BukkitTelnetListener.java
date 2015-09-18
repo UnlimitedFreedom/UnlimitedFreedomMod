@@ -1,14 +1,19 @@
-package me.StevenLawson.TotalFreedomMod.Bridge;
+package me.StevenLawson.TotalFreedomMod.Listener;
 
 import java.util.Iterator;
 import java.util.Map;
 import me.StevenLawson.BukkitTelnet.api.TelnetCommandEvent;
 import me.StevenLawson.BukkitTelnet.api.TelnetPreLoginEvent;
 import me.StevenLawson.BukkitTelnet.api.TelnetRequestDataTagsEvent;
+import me.StevenLawson.TotalFreedomMod.Bridge.TFM_EssentialsBridge;
 import me.StevenLawson.TotalFreedomMod.TFM_Admin;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_CommandBlocker;
 import me.StevenLawson.TotalFreedomMod.TFM_PlayerData;
+import me.StevenLawson.TotalFreedomMod.TFM_Util;
+import me.StevenLawson.TotalFreedomMod.UFM_Util;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,6 +21,7 @@ import org.bukkit.event.Listener;
 
 public class TFM_BukkitTelnetListener implements Listener
 {
+
     @EventHandler(priority = EventPriority.NORMAL)
     public void onTelnetPreLogin(TelnetPreLoginEvent event)
     {
@@ -35,6 +41,8 @@ public class TFM_BukkitTelnetListener implements Listener
 
         event.setBypassPassword(true);
         event.setName(admin.getLastLoginName());
+        String fuzzy = TFM_Util.getFuzzyIp(ip);
+        UFM_Util.telnetMessage(admin.getLastLoginName(), "Logged in via Telnet with the IP of " + fuzzy.trim(), true);
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -43,6 +51,13 @@ public class TFM_BukkitTelnetListener implements Listener
         if (TFM_CommandBlocker.isCommandBlocked(event.getCommand(), event.getSender()))
         {
             event.setCancelled(true);
+        }
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (TFM_AdminList.isSeniorAdmin(player))
+            {
+                TFM_Util.playerMsg(player, ChatColor.GRAY + "" + ChatColor.ITALIC + event.getSender().getName() + ": /" + event.getCommand());
+            }
         }
     }
 
@@ -73,9 +88,7 @@ public class TFM_BukkitTelnetListener implements Listener
             playerTags.put("tfm.admin.isAdmin", isAdmin);
             playerTags.put("tfm.admin.isTelnetAdmin", isTelnetAdmin);
             playerTags.put("tfm.admin.isSeniorAdmin", isSeniorAdmin);
-
             playerTags.put("tfm.playerdata.getTag", TFM_PlayerData.getPlayerData(player).getTag());
-
             playerTags.put("tfm.essentialsBridge.getNickname", TFM_EssentialsBridge.getNickname(player.getName()));
         }
     }

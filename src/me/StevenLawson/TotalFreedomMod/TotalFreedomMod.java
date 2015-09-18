@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import me.StevenLawson.TotalFreedomMod.Bridge.TFM_BukkitTelnetListener;
+import me.StevenLawson.TotalFreedomMod.Listener.TFM_BukkitTelnetListener;
 import me.StevenLawson.TotalFreedomMod.Bridge.TFM_WorldEditListener;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandHandler;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandLoader;
