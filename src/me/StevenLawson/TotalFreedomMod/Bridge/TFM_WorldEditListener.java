@@ -10,24 +10,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class TFM_WorldEditListener implements Listener
-{
+public class TFM_WorldEditListener implements Listener {
 
     @EventHandler
-    public void onSelectionChange(final SelectionChangedEvent event)
-    {
+    public void onSelectionChange(final SelectionChangedEvent event) {
         final Player player = event.getPlayer();
 
-        if (TFM_AdminList.isSuperAdmin(player))
-        {
+        if (TFM_AdminList.isSuperAdmin(player)) {
             return;
         }
 
         if (TFM_ProtectedArea.isInProtectedArea(
                 event.getMinVector(),
                 event.getMaxVector(),
-                event.getWorld().getName()))
-        {
+                event.getWorld().getName())) {
 
             player.sendMessage(ChatColor.RED + "The region that you selected contained a protected area. Selection cleared.");
             event.setCancelled(true);
@@ -35,23 +31,19 @@ public class TFM_WorldEditListener implements Listener
     }
 
     @EventHandler
-    public void onLimitChanged(LimitChangedEvent event)
-    {
+    public void onLimitChanged(LimitChangedEvent event) {
         final Player player = event.getPlayer();
 
-        if (TFM_AdminList.isSuperAdmin(player))
-        {
+        if (TFM_AdminList.isSuperAdmin(player)) {
             return;
         }
 
-        if (!event.getPlayer().equals(event.getTarget()))
-        {
+        if (!event.getPlayer().equals(event.getTarget())) {
             player.sendMessage(ChatColor.RED + "Only admins can change the limit for other players!");
             event.setCancelled(true);
         }
 
-        if (event.getLimit() < 0 || event.getLimit() > 10000)
-        {
+        if (event.getLimit() < 0 || event.getLimit() > 10000) {
             player.setOp(false);
             TFM_Util.bcastMsg(event.getPlayer().getName() + " tried to set their WorldEdit limit to " + event.getLimit() + " and has been de-opped", ChatColor.RED);
             event.setCancelled(true);

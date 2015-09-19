@@ -19,23 +19,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-public class TFM_BukkitTelnetListener implements Listener
-{
+public class TFM_BukkitTelnetListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onTelnetPreLogin(TelnetPreLoginEvent event)
-    {
+    public void onTelnetPreLogin(TelnetPreLoginEvent event) {
 
         final String ip = event.getIp();
-        if (ip == null || ip.isEmpty())
-        {
+        if (ip == null || ip.isEmpty()) {
             return;
         }
 
         final TFM_Admin admin = TFM_AdminList.getEntryByIp(ip, true);
 
-        if (admin == null || !admin.isActivated() || !admin.isTelnetAdmin())
-        {
+        if (admin == null || !admin.isActivated() || !admin.isTelnetAdmin()) {
             return;
         }
 
@@ -46,27 +42,21 @@ public class TFM_BukkitTelnetListener implements Listener
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onTelnetCommand(TelnetCommandEvent event)
-    {
-        if (TFM_CommandBlocker.isCommandBlocked(event.getCommand(), event.getSender()))
-        {
+    public void onTelnetCommand(TelnetCommandEvent event) {
+        if (TFM_CommandBlocker.isCommandBlocked(event.getCommand(), event.getSender())) {
             event.setCancelled(true);
         }
-        for (Player player : Bukkit.getOnlinePlayers())
-        {
-            if (TFM_AdminList.isSeniorAdmin(player))
-            {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (TFM_AdminList.isSeniorAdmin(player)) {
                 TFM_Util.playerMsg(player, ChatColor.GRAY + "" + ChatColor.ITALIC + event.getSender().getName() + ": /" + event.getCommand());
             }
         }
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onTelnetRequestDataTags(TelnetRequestDataTagsEvent event)
-    {
+    public void onTelnetRequestDataTags(TelnetRequestDataTagsEvent event) {
         final Iterator<Map.Entry<Player, Map<String, Object>>> it = event.getDataTags().entrySet().iterator();
-        while (it.hasNext())
-        {
+        while (it.hasNext()) {
             final Map.Entry<Player, Map<String, Object>> entry = it.next();
             final Player player = entry.getKey();
             final Map<String, Object> playerTags = entry.getValue();
@@ -76,8 +66,7 @@ public class TFM_BukkitTelnetListener implements Listener
             boolean isSeniorAdmin = false;
 
             final TFM_Admin admin = TFM_AdminList.getEntry(player);
-            if (admin != null)
-            {
+            if (admin != null) {
                 boolean isActivated = admin.isActivated();
 
                 isAdmin = isActivated;

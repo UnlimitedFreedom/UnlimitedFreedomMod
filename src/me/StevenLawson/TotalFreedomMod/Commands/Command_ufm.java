@@ -16,20 +16,16 @@ import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.BOTH)
 @CommandParameters(description = "Shows information about UnlimitedFreedomMod or reloads it", usage = "/<command> [reload]")
-public class Command_ufm extends TFM_Command
-{
+public class Command_ufm extends TFM_Command {
+
     @Override
-    public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
-    {
-        if (args.length == 1)
-        {
-            if (!args[0].equals("reload"))
-            {
+    public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
+        if (args.length == 1) {
+            if (!args[0].equals("reload")) {
                 return false;
             }
 
-            if (!TFM_AdminList.isSuperAdmin(sender))
-            {
+            if (!TFM_AdminList.isSuperAdmin(sender)) {
                 playerMsg(TFM_Command.MSG_NO_PERMS);
                 return true;
             }

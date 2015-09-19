@@ -12,18 +12,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Gives admins the admin goodies.", usage = "/<command>")
-public class Command_admintools extends TFM_Command
-{
+public class Command_admintools extends TFM_Command {
 
     @Override
-    public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
-    {
+    public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
         PlayerInventory inv = sender_p.getInventory();
         ItemStack LongShaft = new ItemStack(Material.STICK, 1);
-        for (Enchantment ench : Enchantment.values())
-        {
-            if (ench.equals(Enchantment.LOOT_BONUS_MOBS) || ench.equals(Enchantment.LOOT_BONUS_BLOCKS))
-            {
+        for (Enchantment ench : Enchantment.values()) {
+            if (ench.equals(Enchantment.LOOT_BONUS_MOBS) || ench.equals(Enchantment.LOOT_BONUS_BLOCKS)) {
                 continue;
             }
             LongShaft.addUnsafeEnchantment(ench, 32767);
