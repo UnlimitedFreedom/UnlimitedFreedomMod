@@ -1,5 +1,5 @@
 #
-# TotalFreedomMod v4.3 Configuration
+# UnlimitedFreedomMod v2.0 Configuration
 # by Madgeek1450 and Prozza
 #
 
@@ -9,7 +9,7 @@ server:
   name: UnlimitedFreedom
 
   # The address your server is located at. Please do not include the port.
-  address: play.totalfreedom.me
+  address: 167.114.36.167
 
   # Shown at the server list
   motd: UnlimitedFreedom &8- Minecraft %mcversion%
@@ -20,10 +20,11 @@ server:
   # All players who show up as owner
   owners:
     - _ItsNick_
+    - AwesomePinch
 
   # All players who show up as coowner
   coowners:
-    - SlayBuzz
+    - Missy_Cathy
 
   # URL players should appeal for bans at
   ban_url: http://totalfreedom.boards.net/

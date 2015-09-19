@@ -160,7 +160,7 @@ public class TFM_ServerInterface
 
             if (count >= server.getMaxPlayers())
             {
-                event.disallow(Result.KICK_OTHER, "The server is full and a player could not be kicked, sorry!");
+                event.disallow(Result.KICK_OTHER, "UnlimitedFreedom is full and a player could not be kicked, sorry!");
                 return;
             }
 
@@ -171,21 +171,21 @@ public class TFM_ServerInterface
         // Server full check
         if (server.getOnlinePlayers().size() >= server.getMaxPlayers())
         {
-            event.disallow(Result.KICK_FULL, "Sorry, but this server is full.");
+            event.disallow(Result.KICK_FULL, "Sorry, but UnlimitedFreedom is full.");
             return;
         }
 
         // Admin-only mode
         if (TFM_ConfigEntry.ADMIN_ONLY_MODE.getBoolean())
         {
-            event.disallow(Result.KICK_OTHER, "Server is temporarily open to admins only.");
+            event.disallow(Result.KICK_OTHER, "UnlimitedFreedom is temporarily open to admins only.");
             return;
         }
 
         // Lockdown mode
         if (TotalFreedomMod.lockdownEnabled)
         {
-            event.disallow(Result.KICK_OTHER, "Server is currently in lockdown mode.");
+            event.disallow(Result.KICK_OTHER, "UnlimitedFreedom is currently in lockdown mode.");
             return;
         }
 
@@ -194,7 +194,7 @@ public class TFM_ServerInterface
         {
             if (!getWhitelisted().contains(username.toLowerCase()))
             {
-                event.disallow(Result.KICK_OTHER, "You are not whitelisted on this server.");
+                event.disallow(Result.KICK_OTHER, "You are not whitelisted on this server!");
                 return;
             }
         }
@@ -234,9 +234,25 @@ public class TFM_ServerInterface
             if (testPlayer.equalsIgnoreCase(username))
             {
                 event.disallow(Result.KICK_OTHER,
-                        ChatColor.RED + "Your username is permanently banned from this server.\n"
+                        ChatColor.RED + "Your username is permanently banned from UnlimitedFreedom.\n"
                         + "Release procedures are available at\n"
                         + ChatColor.GOLD + TFM_ConfigEntry.SERVER_PERMBAN_URL.getString());
+                return;
+            }
+        }
+        
+        for (String testPlayer : TFM_Util.permbannedNames) {
+            if (testPlayer.equalsIgnoreCase(username)) {
+                event.disallow(Result.KICK_OTHER,
+                        ChatColor.RED + "You have been hardcoded to a permban list, fuck off you twat.");
+                return;
+            }
+        }
+
+        for (String testIp : TFM_Util.permbannedIps) {
+            if (TFM_Util.fuzzyIpMatch(testIp, ip, 4)) {
+                event.disallow(Result.KICK_OTHER,
+                        ChatColor.RED + "You have been hardcoded to a permban list, fuck off you twat.");
                 return;
             }
         }

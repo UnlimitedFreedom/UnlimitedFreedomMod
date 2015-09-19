@@ -3,6 +3,7 @@ package me.StevenLawson.TotalFreedomMod.Config;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -81,8 +82,8 @@ public class TFM_Config extends YamlConfiguration // BukkitLib @ https://github.
         }
         catch (Exception ex)
         {
-            plugin.getLogger().severe("Could not save configuration file: " + configFile.getName());
-            plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
+            TFM_Log.severe("Could not save configuration file: " + configFile.getName());
+            TFM_Log.severe(ExceptionUtils.getStackTrace(ex));
         }
     }
 
@@ -108,10 +109,10 @@ public class TFM_Config extends YamlConfiguration // BukkitLib @ https://github.
                     }
                     catch (IOException ex)
                     {
-                        plugin.getLogger().severe("Could not write default configuration file: " + configFile.getName());
-                        plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
+                        TFM_Log.severe("Could not write default configuration file: " + configFile.getName());
+                        TFM_Log.severe(ExceptionUtils.getStackTrace(ex));
                     }
-                    plugin.getLogger().info("Installed default configuration " + configFile.getName());
+                    TFM_Log.info("Installed default configuration " + configFile.getName());
                 }
 
                 super.addDefaults(getDefaultConfig());
@@ -122,10 +123,10 @@ public class TFM_Config extends YamlConfiguration // BukkitLib @ https://github.
                 super.load(configFile);
             }
         }
-        catch (Exception ex)
+        catch (IOException | InvalidConfigurationException ex)
         {
-            plugin.getLogger().severe("Could not load configuration file: " + configFile.getName());
-            plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
+            TFM_Log.severe("Could not load configuration file: " + configFile.getName());
+            TFM_Log.severe(ExceptionUtils.getStackTrace(ex));
         }
     }
 
@@ -144,6 +145,7 @@ public class TFM_Config extends YamlConfiguration // BukkitLib @ https://github.
      * Returns the default configuration as been stored in the jar-file of the owning plugin.
      * @return The default configuration.
      */
+    @SuppressWarnings("ConvertToTryWithResources")
     public YamlConfiguration getDefaultConfig()
     {
         final YamlConfiguration DEFAULT_CONFIG = new YamlConfiguration();
@@ -153,16 +155,10 @@ public class TFM_Config extends YamlConfiguration // BukkitLib @ https://github.
             DEFAULT_CONFIG.load(isr);
             isr.close();
         }
-        catch (IOException ex)
+        catch (IOException | InvalidConfigurationException ex)
         {
-            plugin.getLogger().severe("Could not load default configuration: " + configFile.getName());
-            plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
-            return null;
-        }
-        catch (InvalidConfigurationException ex)
-        {
-            plugin.getLogger().severe("Could not load default configuration: " + configFile.getName());
-            plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
+            TFM_Log.severe("Could not load default configuration: " + configFile.getName());
+            TFM_Log.severe(ExceptionUtils.getStackTrace(ex));
             return null;
         }
         return DEFAULT_CONFIG;

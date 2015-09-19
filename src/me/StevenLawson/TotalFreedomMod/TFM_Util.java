@@ -32,6 +32,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import me.StevenLawson.TotalFreedomMod.Config.TFM_Config;
 import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
+import static me.StevenLawson.TotalFreedomMod.TFM_HardcodeBanList.HARDCODE;
+import static me.StevenLawson.TotalFreedomMod.TFM_HardcodeBanList.HARDCODE_IPS;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
@@ -85,6 +87,9 @@ public class TFM_Util
             ChatColor.RED,
             ChatColor.LIGHT_PURPLE,
             ChatColor.YELLOW);
+    public static ArrayList<String> imposters = new ArrayList<>();
+    public static final List<String> permbannedNames = HARDCODE;
+    public static final List<String> permbannedIps = HARDCODE_IPS;
 
     static
     {

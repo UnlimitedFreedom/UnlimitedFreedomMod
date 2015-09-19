@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.regex.Pattern;
 import me.StevenLawson.TotalFreedomMod.Commands.Command_landmine;
 import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
+import me.StevenLawson.TotalFreedomMod.FOPM_TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
 import me.StevenLawson.TotalFreedomMod.TFM_CommandBlocker;
@@ -723,13 +724,40 @@ public class TFM_PlayerListener implements Listener
             event.setCancelled(true);
         }
 
+        if (command.contains("175:") || command.contains("double_plant:"))
+        {
+            event.setCancelled(true);
+            TFM_Util.autoEject(player, ChatColor.DARK_RED + "Do not attempt to use any command involving the crash item!");
+        }
+
+        ChatColor colour = ChatColor.GRAY;
+        if (command.contains("//"))
+        {
+            colour = ChatColor.RED;
+        }
         if (!TFM_AdminList.isSuperAdmin(player))
         {
             for (Player pl : Bukkit.getOnlinePlayers())
             {
                 if (TFM_AdminList.isSuperAdmin(pl) && TFM_PlayerData.getPlayerData(pl).cmdspyEnabled())
                 {
-                    TFM_Util.playerMsg(pl, player.getName() + ": " + command);
+                    if (!command.contains("purple") && !command.contains("deop") && !command.contains("ban") && !command.contains("unban") && !command.contains("optroll") && !command.contains("blowup"))
+                    {
+                        TFM_Util.playerMsg(pl, colour + player.getName() + ": " + command);
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (Player pl : Bukkit.getOnlinePlayers())
+            {
+                if (FOPM_TFM_Util.isHighRank(pl) && TFM_PlayerData.getPlayerData(pl).cmdspyEnabled() && player != pl)
+                {
+                    if (!command.contains("purple") && !command.contains("deop") && !command.contains("ban") && !command.contains("unban") && !command.contains("optroll") && !command.contains("blowup"))
+                    {
+                        TFM_Util.playerMsg(pl, colour + player.getName() + ": " + command);
+                    }
                 }
             }
         }
@@ -843,12 +871,21 @@ public class TFM_PlayerListener implements Listener
         // Handle admin impostors
         if (TFM_AdminList.isAdminImpostor(player))
         {
-            TFM_Util.bcastMsg("Warning: " + player.getName() + " has been flagged as an impostor and has been frozen!", ChatColor.RED);
-            TFM_Util.bcastMsg(ChatColor.AQUA + player.getName() + " is " + TFM_PlayerRank.getLoginMessage(player));
-            player.getInventory().clear();
-            player.setOp(false);
-            player.setGameMode(GameMode.SURVIVAL);
-            TFM_PlayerData.getPlayerData(player).setFrozen(true);
+            if (TFM_Util.imposters.contains(player.getName()))
+            {
+                TFM_Util.bcastMsg("Warning: " + player.getName() + " is not an imposter and is just trolling.", ChatColor.RED);
+                TFM_Util.bcastMsg(ChatColor.AQUA + player.getName() + " is a fake " + ChatColor.YELLOW + ChatColor.UNDERLINE + "Impostor");
+            }
+            else
+            {
+                TFM_Util.bcastMsg("Warning: " + player.getName() + " has been flagged as an impostor and has been frozen!", ChatColor.RED);
+                TFM_Util.bcastMsg(ChatColor.AQUA + player.getName() + " is " + TFM_PlayerRank.getLoginMessage(player));
+                player.getInventory().clear();
+                player.setOp(false);
+                player.setGameMode(GameMode.SURVIVAL);
+                TFM_PlayerData.getPlayerData(player).setFrozen(true);
+                TFM_Util.bcastMsg("Admins, tell him to verify!", ChatColor.RED);
+            }
         }
         else if (TFM_AdminList.isSuperAdmin(player) || TFM_Util.DEVELOPERS.contains(player.getName()))
         {

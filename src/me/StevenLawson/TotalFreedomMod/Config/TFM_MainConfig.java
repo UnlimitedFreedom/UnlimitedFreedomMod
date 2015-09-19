@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+@SuppressWarnings("ConvertToTryWithResources")
 public class TFM_MainConfig
 {
     public static final File CONFIG_FILE = new File(TotalFreedomMod.plugin.getDataFolder(), TotalFreedomMod.CONFIG_FILENAME);
@@ -92,11 +93,7 @@ public class TFM_MainConfig
         {
             TFM_Log.severe(ex);
         }
-        catch (IOException ex)
-        {
-            TFM_Log.severe(ex);
-        }
-        catch (InvalidConfigurationException ex)
+        catch (IOException | InvalidConfigurationException ex)
         {
             TFM_Log.severe(ex);
         }
@@ -285,11 +282,7 @@ public class TFM_MainConfig
                 defaults.load(isr);
                 isr.close();
             }
-            catch (IOException ex)
-            {
-                TFM_Log.severe(ex);
-            }
-            catch (InvalidConfigurationException ex)
+            catch (IOException | InvalidConfigurationException ex)
             {
                 TFM_Log.severe(ex);
             }
