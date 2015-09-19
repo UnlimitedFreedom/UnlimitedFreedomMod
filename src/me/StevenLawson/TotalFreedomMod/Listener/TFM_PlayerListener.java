@@ -514,7 +514,14 @@ public class TFM_PlayerListener implements Listener {
             }
 
             // Strip color from messages
-            message = ChatColor.stripColor(message);
+            if (!TFM_AdminList.isSuperAdmin(player))
+            {
+                message = ChatColor.stripColor(message);
+            }
+            else
+            {
+                message = message.replaceAll("&", "§");
+            }
 
             // Truncate messages that are too long - 100 characters is vanilla client max
             if (message.length() > 100) {

@@ -1,5 +1,7 @@
 package me.StevenLawson.TotalFreedomMod;
 
+import me.RyanWild.CJFreedomMod.CJFM_Util;
+import me.RyanWild.CJFreedomMod.Player.CJFM_DonatorList;
 import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import static me.StevenLawson.TotalFreedomMod.TFM_Util.DEVELOPERS;
 import static me.StevenLawson.TotalFreedomMod.TFM_Util.UF_DEVELOPERS;
@@ -20,7 +22,12 @@ public enum TFM_PlayerRank {
     SENIOR("a " + ChatColor.LIGHT_PURPLE + "Senior Admin", ChatColor.LIGHT_PURPLE + "[SrA]"),
     OWNER("the " + ChatColor.BLUE + "Owner" + ChatColor.AQUA + " of " + ChatColor.YELLOW + "UnlimitedFreedom", ChatColor.BLUE + "[Owner]"),
     COOWNER("a " + ChatColor.BLUE + "Co-Owner", ChatColor.BLUE + "[Co-Owner]"),
-    CONSOLE("The " + ChatColor.DARK_PURPLE + "Console", ChatColor.DARK_PURPLE + "[Console]");
+    CONSOLE("The " + ChatColor.DARK_PURPLE + "Console", ChatColor.DARK_PURPLE + "[Console]"),
+    //CJFM
+    EXECUTIVE("an " + ChatColor.BLUE + "Executive", ChatColor.BLUE + "[Executive]"),
+    SYSADMIN("a " + ChatColor.DARK_RED + "System Admin", ChatColor.DARK_RED + "[Sys-Admin]"),
+    SUPERDONATOR("a " + ChatColor.YELLOW + "Super Donator", ChatColor.YELLOW + "[Super Donator]"),
+    SENIORDONATOR("a" + ChatColor.GOLD + "Senior Donator", ChatColor.GOLD + "[Senior Donator]");
     private final String loginMessage;
     private final String prefix;
 
@@ -60,6 +67,32 @@ public enum TFM_PlayerRank {
         if (TFM_AdminList.isAdminImpostor((Player) sender)) {
             return IMPOSTOR;
         }
+        
+        if (CJFM_Util.SYSADMINS.contains(sender.getName()))
+        {
+            return SYSADMIN;
+        }
+
+        if (CJFM_Util.EXECUTIVES.contains(sender.getName()))
+        {
+            return EXECUTIVE;
+        }
+
+        if (CJFM_Util.DEVELOPERS.contains(sender.getName().toLowerCase()))
+        {
+            return DEVELOPER;
+        }
+
+        if (CJFM_DonatorList.isSuperDonor(sender))
+        {
+            return SUPERDONATOR;
+        }
+
+        if (CJFM_DonatorList.isSeniorDonor(sender))
+        {
+            return SENIORDONATOR;
+        }
+
 
         if (sender.getName().equals("tylerhyperHD")) {
             return TYLER;

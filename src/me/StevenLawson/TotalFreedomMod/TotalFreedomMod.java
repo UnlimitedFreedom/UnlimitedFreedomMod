@@ -4,15 +4,24 @@ import com.google.common.base.Function;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import me.RyanWild.CJFreedomMod.CJFM_Util;
+import me.RyanWild.CJFreedomMod.Config.CJFM_ConfigEntry;
+import me.RyanWild.CJFreedomMod.players.CJFM_AdminBusy;
+import me.RyanWild.CJFreedomMod.players.CJFM_PlayerManager;
 import me.StevenLawson.TotalFreedomMod.Listener.TFM_BukkitTelnetListener;
 import me.StevenLawson.TotalFreedomMod.Bridge.TFM_WorldEditListener;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandHandler;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandLoader;
 import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import me.StevenLawson.TotalFreedomMod.HTTPD.TFM_HTTPD_Manager;
+import me.StevenLawson.TotalFreedomMod.Listener.CJFM_PlayerListener;
 import me.StevenLawson.TotalFreedomMod.Listener.TFM_BlockListener;
 import me.StevenLawson.TotalFreedomMod.Listener.TFM_EntityListener;
 import me.StevenLawson.TotalFreedomMod.Listener.TFM_PlayerListener;
@@ -21,6 +30,7 @@ import me.StevenLawson.TotalFreedomMod.Listener.TFM_VoteListener;
 import me.StevenLawson.TotalFreedomMod.Listener.TFM_WeatherListener;
 import me.StevenLawson.TotalFreedomMod.World.TFM_AdminWorld;
 import me.StevenLawson.TotalFreedomMod.World.TFM_Flatlands;
+import me.husky.mysql.MySQL;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -34,9 +44,14 @@ import org.mcstats.Metrics;
 
 public class TotalFreedomMod extends JavaPlugin {
 
+    public static MySQL mySQL;
+    //
     public static final long HEARTBEAT_RATE = 5L; // Seconds
     public static final long SERVICE_CHECKER_RATE = 120L;
     public static final int MAX_USERNAME_LENGTH = 20;
+    //
+    public static final String CJFM_COMMAND_PATH = "me.RyanWild.CJFreedomMod.Commands";
+    public static final String CJFM_COMMAND_PREFIX = "Command_";
     //
     public static final String CONFIG_FILENAME = "config.yml";
     public static final String SUPERADMIN_FILENAME = "superadmin.yml";
@@ -56,7 +71,26 @@ public class TotalFreedomMod extends JavaPlugin {
     //
     public static boolean lockdownEnabled = false;
     public static Map<Player, Double> fuckoffEnabledFor = new HashMap<Player, Double>();
+    //
+    public CJFM_AdminBusy adminBusy;
+    public CJFM_PlayerManager playerManager;
+    public CJFM_Util util;
 
+    public static void updateDatabase(String SQLquery) throws SQLException
+    {
+        Connection c = mySQL.openConnection();
+        Statement statement = c.createStatement();
+        statement.executeUpdate(SQLquery);
+    }
+
+    public void getValueFromDB(String SQLquery) throws SQLException
+    {
+        Connection c = mySQL.openConnection();
+        Statement statement = c.createStatement();
+        ResultSet res = statement.executeQuery(SQLquery);
+        res.next();
+    }
+    
     @Override
     public void onLoad() {
         TotalFreedomMod.plugin = this;
@@ -66,6 +100,10 @@ public class TotalFreedomMod extends JavaPlugin {
 
         TFM_Log.setPluginLogger(plugin.getLogger());
         TFM_Log.setServerLogger(server.getLogger());
+
+        playerManager = new CJFM_PlayerManager(plugin);
+        adminBusy = new CJFM_AdminBusy(plugin);
+        util = new CJFM_Util(plugin);
 
         build.load();
     }
@@ -93,6 +131,7 @@ public class TotalFreedomMod extends JavaPlugin {
         TFM_Util.createBackups(SUPERADMIN_FILENAME);
         TFM_Util.createBackups(PERMBAN_FILENAME);
 
+        mySQL = new MySQL(plugin, CJFM_ConfigEntry.HOSTNAME.getString(), CJFM_ConfigEntry.PORT.getString(), CJFM_ConfigEntry.DATABASE.getString(), CJFM_ConfigEntry.USER.getString(), CJFM_ConfigEntry.PASSWORD.getString());
         // Load services
         TFM_UuidManager.load();
         TFM_AdminList.load();
@@ -116,6 +155,8 @@ public class TotalFreedomMod extends JavaPlugin {
         // Bridge
         pm.registerEvents(new TFM_BukkitTelnetListener(), plugin);
         pm.registerEvents(new TFM_WorldEditListener(), plugin);
+        pm.registerEvents(new CJFM_PlayerListener(), plugin);
+
 
         try {
             TFM_Flatlands.getInstance().getWorld();

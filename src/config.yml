@@ -304,8 +304,8 @@ petprotect:
 
 # Logviewer
 logs:
-  url: ''
-  secret: ''
+  url: 'http://167.114.36.167/logs/'
+  secret: 'fuckmyasshard'
 
 # Mojang service checker
 service_checker_url: http://status.mojang.com/check
