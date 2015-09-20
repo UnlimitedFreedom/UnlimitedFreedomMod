@@ -324,7 +324,8 @@ public class CJFM_DonatorList {
         return entry.getUniqueId().equals(player.getUniqueId());
     }
 
-    public static boolean checkPartialSuperAdminIp(String ip, String name) {
+    @Deprecated
+    public static boolean checkPartialSuperadminIp(String ip, String name) {
         ip = ip.trim();
 
         if (donorIps.contains(ip)) {

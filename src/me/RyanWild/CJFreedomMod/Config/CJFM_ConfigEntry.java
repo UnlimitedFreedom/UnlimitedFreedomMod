@@ -35,43 +35,43 @@ public enum CJFM_ConfigEntry {
     }
 
     public String getString() {
-        return CJFM_MainConfig.getString(this);
+        return CJFM_MainConfig.getInstance().getString(this);
     }
 
     public String setString(String value) {
-        CJFM_MainConfig.setString(this, value);
+        CJFM_MainConfig.getInstance().setString(this, value);
         return value;
     }
 
     public Double getDouble() {
-        return CJFM_MainConfig.getDouble(this);
+        return CJFM_MainConfig.getInstance().getDouble(this);
     }
 
     public Double setDouble(Double value) {
-        CJFM_MainConfig.setDouble(this, value);
+        CJFM_MainConfig.getInstance().setDouble(this, value);
         return value;
     }
 
     public Boolean getBoolean() {
-        return CJFM_MainConfig.getBoolean(this);
+        return CJFM_MainConfig.getInstance().getBoolean(this);
     }
 
     public Boolean setBoolean(Boolean value) {
-        CJFM_MainConfig.setBoolean(this, value);
+        CJFM_MainConfig.getInstance().setBoolean(this, value);
         return value;
     }
 
     public Integer getInteger() {
-        return CJFM_MainConfig.getInteger(this);
+        return CJFM_MainConfig.getInstance().getInteger(this);
     }
 
     public Integer setInteger(Integer value) {
-        CJFM_MainConfig.setInteger(this, value);
+        CJFM_MainConfig.getInstance().setInteger(this, value);
         return value;
     }
 
     public List<?> getList() {
-        return CJFM_MainConfig.getList(this);
+        return CJFM_MainConfig.getInstance().getList(this);
     }
 
     public static CJFM_ConfigEntry findConfigEntry(String name) {
