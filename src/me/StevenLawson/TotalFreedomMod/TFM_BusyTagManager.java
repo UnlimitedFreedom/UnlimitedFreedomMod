@@ -12,11 +12,13 @@ public class TFM_BusyTagManager {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[Off Duty Lead Developer]");
             return;
-        } if (player.getName().equals("Scourge_DBZ")) {
+        }
+        if (TFM_Util.ADMINMGRS.contains(player.getName())) {
             player.setPlayerListName(ChatColor.DARK_AQUA + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[Off Duty Admin Manager]");
             return;
-        } if (TFM_Util.UF_DEVELOPERS.contains(player.getName())) {
+        }
+        if (TFM_Util.UF_DEVELOPERS.contains(player.getName())) {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[Off Duty Developer]");
             return;

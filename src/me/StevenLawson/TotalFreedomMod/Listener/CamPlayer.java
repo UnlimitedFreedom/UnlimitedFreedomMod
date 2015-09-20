@@ -14,102 +14,82 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.BlockIterator;
 
-public class CamPlayer
-{
+public class CamPlayer {
+
     private final Player player;
 
-    public CamPlayer(Player player)
-    {
+    public CamPlayer(Player player) {
         this.player = player;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return player.getName();
     }
 
-    public World getWorld()
-    {
+    public World getWorld() {
         return player.getWorld();
     }
-    
-    public void kickPlayer(String message)
-    {
+
+    public void kickPlayer(String message) {
         player.kickPlayer(message);
     }
 
-    public Location getLocation()
-    {
+    public Location getLocation() {
         return player.getLocation();
     }
-    
-    public void closeInventory()
-    {
+
+    public void closeInventory() {
         player.closeInventory();
     }
-    
-    public Inventory getInventory()
-    {
+
+    public Inventory getInventory() {
         return player.getInventory();
     }
-    
-    public void setWhitelisted(Boolean isWhitelisted)
-    {
+
+    public void setWhitelisted(Boolean isWhitelisted) {
         player.setWhitelisted(isWhitelisted);
     }
-    
-        
-    public void setOp(Boolean isOp)
-    {
+
+    public void setOp(Boolean isOp) {
         player.setOp(isOp);
     }
-    
-    public InetSocketAddress getAddress()
-    {
+
+    public InetSocketAddress getAddress() {
         return player.getAddress();
     }
 
-    public void setHealth(double health)
-    {
+    public void setHealth(double health) {
         player.setHealth(health);
     }
 
-    public void killPlayer()
-    {
+    public void killPlayer() {
         setHealth(0d);
     }
 
-    public void explode()
-    {
+    public void explode() {
         getWorld().createExplosion(getLocation().getX(), getLocation().getY(), getLocation().getZ(), 10, false, false);
         TotalFreedomMod.exploded.add(getName());
         setHealth(0d);
     }
 
-    public void smite()
-    {
-        for (int i = 0; i <= 5; i++)
-        {
+    public void smite() {
+        for (int i = 0; i <= 5; i++) {
             getWorld().strikeLightningEffect(getLocation());
         }
         setHealth(0d);
     }
 
     @Deprecated
-    public void setHealth(int i)
-    {
+    public void setHealth(int i) {
         player.setHealth(i);
     }
 
-    public final Location getTargetBlock(int range)
-    {
+    public final Location getTargetBlock(int range) {
         BlockIterator iter = new BlockIterator(player, range);
         Block lastBlock = iter.next();
-        while (iter.hasNext())
-        {
+        while (iter.hasNext()) {
             lastBlock = iter.next();
-            if (lastBlock.getType() == Material.AIR)
-            {
+            if (lastBlock.getType() == Material.AIR) {
                 continue;
             }
             break;
@@ -117,13 +97,11 @@ public class CamPlayer
         return lastBlock.getLocation();
     }
 
-    public Location getTargetBlockNoTrans(int blocks)
-    {
+    @SuppressWarnings("unchecked")
+    public Location getTargetBlockNoTrans(int blocks) {
         Set set = new HashSet<>();
-        for (Material material : Material.values())
-        {
-            if (material.isTransparent())
-            {
+        for (Material material : Material.values()) {
+            if (material.isTransparent()) {
                 set.add(material);
             }
         }
@@ -132,20 +110,16 @@ public class CamPlayer
         return loc;
     }
 
-    public boolean isTargetingEntity()
-    {
+    public boolean isTargetingEntity() {
         return isTargetingEntity(20);
     }
 
-    public boolean isTargetingEntity(int blocks)
-    {
-        for (Block block : player.getLineOfSight((HashSet<Byte>) null, blocks))
-        {
+    @SuppressWarnings("deprecation")
+    public boolean isTargetingEntity(int blocks) {
+        for (Block block : player.getLineOfSight((HashSet<Byte>) null, blocks)) {
             Location loc = block.getLocation();
-            for (Entity e : player.getWorld().getLivingEntities())
-            {
-                if (e.getLocation().distance(loc) <= 2 && !e.equals(player))
-                {
+            for (Entity e : player.getWorld().getLivingEntities()) {
+                if (e.getLocation().distance(loc) <= 2 && !e.equals(player)) {
                     return true;
                 }
             }
@@ -153,20 +127,16 @@ public class CamPlayer
         return false;
     }
 
-    public LivingEntity getTargetEntity()
-    {
+    public LivingEntity getTargetEntity() {
         return getTargetEntity(20);
     }
 
-    public LivingEntity getTargetEntity(int blocks)
-    {
-        for (Block block : player.getLineOfSight((HashSet<Byte>) null, blocks))
-        {
+    @SuppressWarnings("deprecation")
+    public LivingEntity getTargetEntity(int blocks) {
+        for (Block block : player.getLineOfSight((HashSet<Byte>) null, blocks)) {
             Location loc2 = block.getLocation();
-            for (LivingEntity e : player.getWorld().getLivingEntities())
-            {
-                if (e.getLocation().distance(loc2) <= 2 && !e.equals(player))
-                {
+            for (LivingEntity e : player.getWorld().getLivingEntities()) {
+                if (e.getLocation().distance(loc2) <= 2 && !e.equals(player)) {
                     return e;
                 }
             }

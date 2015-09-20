@@ -59,7 +59,7 @@ public class Command_doomhammer extends TFM_Command {
 
         return true;
     }
-    
+
     public static ItemStack getDoomHammer() {
         ItemStack dhammer = new ItemStack(Material.DIAMOND_AXE, 1);
         ItemMeta dhammermeta = dhammer.getItemMeta();

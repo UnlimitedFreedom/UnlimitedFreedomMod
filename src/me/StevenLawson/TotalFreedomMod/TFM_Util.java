@@ -71,6 +71,8 @@ public class TFM_Util {
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
     public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "DarthSalmon", "AcidicCyanide", "Wild1145", "WickedGamingUK");
     public static final List<String> UF_DEVELOPERS = Arrays.asList("tylerhyperHD", "Pattytothewatty", "Skillz_Mixer121");
+    public static final List<String> ADMINMGRS = Arrays.asList("Scourge_DBZ", "ItsFenixMC", "Officer_Duk");
+    public static final List<String> SYSPPL = Arrays.asList("Scourge_DBZ", "ItsFenixMC", "Officer_Duk");
     private static final Random RANDOM = new Random();
     public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
     public static final Map<String, ChatColor> CHAT_COLOR_NAMES = new HashMap<String, ChatColor>();

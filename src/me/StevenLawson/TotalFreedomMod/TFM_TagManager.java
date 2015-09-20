@@ -15,7 +15,7 @@ public class TFM_TagManager {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[&5Lead Developer&8]");
             return;
-        } else if (player.getName().equals("Scourge_DBZ")) {
+        } else if (TFM_Util.ADMINMGRS.contains(player.getName())) {
             player.setPlayerListName(ChatColor.DARK_AQUA + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[&3Admin Manager&8]");
             return;
@@ -72,7 +72,7 @@ public class TFM_TagManager {
             }
         }
     }
-    
+
     public static void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (player.getName().equals("tylerhyperHD")) {
@@ -80,7 +80,7 @@ public class TFM_TagManager {
             TFM_PlayerData.getPlayerData(player).setTag("&8[&5Lead Developer&8]");
             afterNameSet(player);
             return;
-        } else if (player.getName().equals("Scourge_DBZ")) {
+        } else if (TFM_Util.ADMINMGRS.contains(player.getName())) {
             player.setPlayerListName(ChatColor.DARK_AQUA + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[&3Admin Manager&8]");
             afterNameSet(player);
@@ -156,11 +156,15 @@ public class TFM_TagManager {
             @Override
             public void run() {
                 if (TFM_ConfigEntry.ADMIN_ONLY_MODE.getBoolean()) {
-                    player.sendMessage(ChatColor.RED + "Server is currently closed to non-superadmins.");
+                    player.sendMessage(ChatColor.RED + "UnlimitedFreedom is currently closed to non-superadmins.");
+                }
+
+                if (TFM_ConfigEntry.TRAINING_SESSION.getBoolean()) {
+                    player.sendMessage(ChatColor.RED + "UnlimitedFreedom is currently in a training session.");
                 }
 
                 if (TotalFreedomMod.lockdownEnabled) {
-                    TFM_Util.playerMsg(player, "Warning: Server is currenty in lockdown-mode, new players will not be able to join!", ChatColor.RED);
+                    TFM_Util.playerMsg(player, "Warning: UnlimitedFreedom is currenty in lockdown-mode, new players will not be able to join!", ChatColor.RED);
                 }
             }
         }.runTaskLater(TotalFreedomMod.plugin, 20L * 1L);

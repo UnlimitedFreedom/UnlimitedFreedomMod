@@ -22,7 +22,7 @@ public class Command_sys extends TFM_Command {
             Bukkit.broadcastMessage(ChatColor.RED + "WARNING: " + sender.getName() + " has attempted to use a system admin only command. System administration team has been alerted.");
             return true;
         }
-        if (!TFM_ConfigEntry.SERVER_OWNERS.getList().contains(sender.getName()) && !TFM_Util.UF_DEVELOPERS.contains(sender.getName()) && CJFM_Util.CJF_SYSADMINS.contains(sender.getName())) {
+        if (TFM_Util.SYSPPL.contains(sender.getName()) && !TFM_ConfigEntry.SERVER_OWNERS.getList().contains(sender.getName()) && !TFM_Util.UF_DEVELOPERS.contains(sender.getName()) && CJFM_Util.CJF_SYSADMINS.contains(sender.getName())) {
             sender.sendMessage(ChatColor.YELLOW + "You do not have permission to this command.");
             Bukkit.broadcastMessage(ChatColor.RED + "WARNING: " + sender.getName() + " has attempted to use a system admin only command. System administration team has been alerted.");
             return true;

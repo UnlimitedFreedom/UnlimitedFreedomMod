@@ -22,8 +22,8 @@ public enum TFM_PlayerRank {
     SENIOR("a " + ChatColor.LIGHT_PURPLE + "Senior Admin", ChatColor.LIGHT_PURPLE + "[SrA]"),
     OWNER("the " + ChatColor.BLUE + "Owner" + ChatColor.AQUA + " of " + ChatColor.YELLOW + "UnlimitedFreedom", ChatColor.BLUE + "[Owner]"),
     COOWNER("a " + ChatColor.BLUE + "Co-Owner", ChatColor.BLUE + "[Co-Owner]"),
-    CONSOLE("The " + ChatColor.DARK_PURPLE + "Console", ChatColor.DARK_PURPLE + "[Console]"),
-    ADMINMGR("the " + ChatColor.DARK_AQUA + "Admin Manager", ChatColor.DARK_AQUA + "[Admin-Mgr]"),
+    CONSOLE("the " + ChatColor.DARK_PURPLE + "Console", ChatColor.DARK_PURPLE + "[Console]"),
+    ADMINMGR("an " + ChatColor.DARK_AQUA + "Admin Manager", ChatColor.DARK_AQUA + "[Admin-Mgr]"),
     //CJFM
     EXECUTIVE("an " + ChatColor.BLUE + "Executive", ChatColor.BLUE + "[Executive]"),
     SYSADMIN("a " + ChatColor.DARK_RED + "System Admin", ChatColor.DARK_RED + "[Sys-Admin]"),
@@ -68,23 +68,15 @@ public enum TFM_PlayerRank {
         if (TFM_AdminList.isAdminImpostor((Player) sender)) {
             return IMPOSTOR;
         }
+        
+        if (TFM_Util.ADMINMGRS.contains(sender.getName())) {
+            return ADMINMGR;
+        }
 
         if (CJFM_Util.SYSADMINS.contains(sender.getName())) {
             return SYSADMIN;
         }
-
-        if (sender.getName().equals("Scourge_DBZ")) {
-            return ADMINMGR;
-        }
         
-        if (sender.getName().equals("ItsFenixMC")) {
-            return ADMINMGR;
-        }
-        
-        if (sender.getName().equals("Officer_Duk")) {
-            return ADMINMGR;
-        }
-
         if (CJFM_Util.EXECUTIVES.contains(sender.getName())) {
             return EXECUTIVE;
         }

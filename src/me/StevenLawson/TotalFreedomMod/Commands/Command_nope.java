@@ -21,7 +21,7 @@ public class Command_nope extends TFM_Command {
         }
 
         final Player player = getPlayer(args[0]);
-        
+
         if (player == null) {
             playerMsg(TFM_Command.PLAYER_NOT_FOUND);
             return true;

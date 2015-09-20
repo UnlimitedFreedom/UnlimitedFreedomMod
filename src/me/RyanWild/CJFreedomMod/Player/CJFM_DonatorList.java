@@ -228,7 +228,6 @@ public class CJFM_DonatorList {
         return donorList.get(uuid);
     }
 
-    @Deprecated
     public static CJFM_Donator getEntry(String name) {
         for (UUID uuid : donorList.keySet()) {
             if (donorList.get(uuid).getLastLoginName().equalsIgnoreCase(name)) {
@@ -325,8 +324,7 @@ public class CJFM_DonatorList {
         return entry.getUniqueId().equals(player.getUniqueId());
     }
 
-    @Deprecated
-    public static boolean checkPartialSuperadminIp(String ip, String name) {
+    public static boolean checkPartialSuperAdminIp(String ip, String name) {
         ip = ip.trim();
 
         if (donorIps.contains(ip)) {

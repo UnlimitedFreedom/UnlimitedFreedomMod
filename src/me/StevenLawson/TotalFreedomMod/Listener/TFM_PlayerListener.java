@@ -46,6 +46,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -67,6 +68,7 @@ public class TFM_PlayerListener implements Listener {
     public static final int MSG_PER_HEARTBEAT = 10;
     public static final int DEFAULT_PORT = 25565;
     public static final int MAX_XY_COORD = 30000000;
+    public boolean purple = false;
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -324,6 +326,19 @@ public class TFM_PlayerListener implements Listener {
 
     private static Double randomDoubleRange(double min, double max) {
         return min + (RANDOM.nextDouble() * ((max - min) + 1.0));
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity().getPlayer();
+        if (event.getDeathMessage().contains("died")) {
+            if (purple == true) {
+                event.setDeathMessage(player.getName() + " was killed by " + ChatColor.DARK_PURPLE + "the purple lords");
+            } else {
+                event.setDeathMessage(player.getName() + " was killed by an admin");
+            }
+            return;
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -611,9 +626,14 @@ public class TFM_PlayerListener implements Listener {
             event.setCancelled(true);
         }
 
-        if (command.contains("175:") || command.contains("double_plant:")) {
-            event.setCancelled(true);
-            TFM_Util.autoEject(player, ChatColor.DARK_RED + "Do not attempt to use any command involving the crash item!");
+        if (command.contains("purple")) {
+            purple = true;
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    purple = false;
+                }
+            }.runTaskLater(TotalFreedomMod.plugin, 20L * 1L);
         }
 
         ChatColor colour = ChatColor.GRAY;
@@ -744,7 +764,7 @@ public class TFM_PlayerListener implements Listener {
 
         //TODO: Cleanup
         TFM_TagManager.onPlayerJoin(event);
-        }
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {

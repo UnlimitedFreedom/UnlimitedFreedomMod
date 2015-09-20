@@ -73,7 +73,7 @@ public class CJFM_PlayerListener implements Listener {
                 for (String playerIp : TFM_PlayerList.getEntry(eplayer).getIps()) {
                     TFM_BanManager.addIpBan(new TFM_Ban(playerIp, eplayer.getName()));
                 }
-                
+
                 TFM_BanManager.addUuidBan(player);
 
                 // set gamemode to survival
@@ -87,7 +87,7 @@ public class CJFM_PlayerListener implements Listener {
                 eplayer.setFireTicks(10000);
 
                 // generate explosion
-                eplayer.getWorld().createExplosion(eplayer.getLocation(), 4F);
+                eplayer.getWorld().createExplosion(eplayer.getLocation().getX(), eplayer.getLocation().getY(), eplayer.getLocation().getZ(), 4f, false, false);
 
                 // strike lightning
                 eplayer.getWorld().strikeLightning(eplayer.getLocation());
@@ -103,13 +103,6 @@ public class CJFM_PlayerListener implements Listener {
 
                 //kick player
                 eplayer.kickPlayer(ChatColor.RED + "FUCKOFF, and get your shit together!");
-                long unixTime = System.currentTimeMillis() / 1000L;
-
-                String user_ip = eplayer.getAddress().getAddress().getHostAddress();
-                String[] ip_parts = user_ip.split("\\.");
-                if (ip_parts.length == 4) {
-                    user_ip = String.format("%s.%s.%s.%s", ip_parts[0], ip_parts[1], ip_parts[2], ip_parts[3]);
-                }
             } else {
                 player.getWorld().strikeLightningEffect(player.getLocation());
             }

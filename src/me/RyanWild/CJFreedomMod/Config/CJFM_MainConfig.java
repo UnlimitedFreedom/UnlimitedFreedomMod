@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.EnumMap;
 import java.util.List;
 import me.StevenLawson.TotalFreedomMod.TFM_Log;
@@ -12,21 +13,24 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+@SuppressWarnings("ConvertToTryWithResources")
 public class CJFM_MainConfig {
 
-    public static final String CONFIG_FILENAME = "cjconfig.yml";
-    public static final File CONFIG_FILE = new File(TotalFreedomMod.plugin.getDataFolder(), CONFIG_FILENAME);
+    public static final File CONFIG_FILE = new File(TotalFreedomMod.plugin.getDataFolder(), TotalFreedomMod.CONFIG_FILENAME);
     //
-    private final EnumMap<CJFM_ConfigEntry, Object> configEntryMap = new EnumMap<CJFM_ConfigEntry, Object>(CJFM_ConfigEntry.class);
+    private static final EnumMap<CJFM_ConfigEntry, Object> ENTRY_MAP;
+    private static final TFM_Defaults DEFAULTS;
 
-    @SuppressWarnings("ConvertToTryWithResources")
-    private CJFM_MainConfig() {
+    static {
+        ENTRY_MAP = new EnumMap<CJFM_ConfigEntry, Object>(CJFM_ConfigEntry.class);
+
+        TFM_Defaults tempDefaults = null;
         try {
             try {
                 InputStream defaultConfig = getDefaultConfig();
-                CJFM_Config_DefaultsLoader defaultsLoader = new CJFM_Config_DefaultsLoader(defaultConfig);
+                tempDefaults = new TFM_Defaults(defaultConfig);
                 for (CJFM_ConfigEntry entry : CJFM_ConfigEntry.values()) {
-                    configEntryMap.put(entry, defaultsLoader.get(entry.getConfigName()));
+                    ENTRY_MAP.put(entry, tempDefaults.get(entry.getConfigName()));
                 }
                 defaultConfig.close();
             } catch (IOException ex) {
@@ -39,9 +43,15 @@ public class CJFM_MainConfig {
         } catch (Exception ex) {
             TFM_Log.severe(ex);
         }
+
+        DEFAULTS = tempDefaults;
     }
 
-    public final void load() {
+    private CJFM_MainConfig() {
+        throw new AssertionError();
+    }
+
+    public static void load() {
         try {
             YamlConfiguration config = new YamlConfiguration();
 
@@ -52,7 +62,7 @@ public class CJFM_MainConfig {
                 if (config.contains(path)) {
                     Object value = config.get(path);
                     if (value == null || entry.getType().isAssignableFrom(value.getClass())) {
-                        configEntryMap.put(entry, value);
+                        ENTRY_MAP.put(entry, value);
                     } else {
                         TFM_Log.warning("Value for " + entry.getConfigName() + " is of type " + value.getClass().getSimpleName() + ". Needs to be " + entry.getType().getSimpleName() + ". Using default value.");
                     }
@@ -62,14 +72,12 @@ public class CJFM_MainConfig {
             }
         } catch (FileNotFoundException ex) {
             TFM_Log.severe(ex);
-        } catch (IOException ex) {
-            TFM_Log.severe(ex);
-        } catch (InvalidConfigurationException ex) {
+        } catch (IOException | InvalidConfigurationException ex) {
             TFM_Log.severe(ex);
         }
     }
 
-    public String getString(CJFM_ConfigEntry entry) {
+    public static String getString(CJFM_ConfigEntry entry) {
         try {
             return get(entry, String.class);
         } catch (IllegalArgumentException ex) {
@@ -78,7 +86,7 @@ public class CJFM_MainConfig {
         return null;
     }
 
-    public void setString(CJFM_ConfigEntry entry, String value) {
+    public static void setString(CJFM_ConfigEntry entry, String value) {
         try {
             set(entry, value, String.class);
         } catch (IllegalArgumentException ex) {
@@ -86,7 +94,7 @@ public class CJFM_MainConfig {
         }
     }
 
-    public Double getDouble(CJFM_ConfigEntry entry) {
+    public static Double getDouble(CJFM_ConfigEntry entry) {
         try {
             return get(entry, Double.class);
         } catch (IllegalArgumentException ex) {
@@ -95,7 +103,7 @@ public class CJFM_MainConfig {
         return null;
     }
 
-    public void setDouble(CJFM_ConfigEntry entry, Double value) {
+    public static void setDouble(CJFM_ConfigEntry entry, Double value) {
         try {
             set(entry, value, Double.class);
         } catch (IllegalArgumentException ex) {
@@ -103,7 +111,7 @@ public class CJFM_MainConfig {
         }
     }
 
-    public Boolean getBoolean(CJFM_ConfigEntry entry) {
+    public static Boolean getBoolean(CJFM_ConfigEntry entry) {
         try {
             return get(entry, Boolean.class);
         } catch (IllegalArgumentException ex) {
@@ -112,7 +120,7 @@ public class CJFM_MainConfig {
         return null;
     }
 
-    public void setBoolean(CJFM_ConfigEntry entry, Boolean value) {
+    public static void setBoolean(CJFM_ConfigEntry entry, Boolean value) {
         try {
             set(entry, value, Boolean.class);
         } catch (IllegalArgumentException ex) {
@@ -120,7 +128,7 @@ public class CJFM_MainConfig {
         }
     }
 
-    public Integer getInteger(CJFM_ConfigEntry entry) {
+    public static Integer getInteger(CJFM_ConfigEntry entry) {
         try {
             return get(entry, Integer.class);
         } catch (IllegalArgumentException ex) {
@@ -129,7 +137,7 @@ public class CJFM_MainConfig {
         return null;
     }
 
-    public void setInteger(CJFM_ConfigEntry entry, Integer value) {
+    public static void setInteger(CJFM_ConfigEntry entry, Integer value) {
         try {
             set(entry, value, Integer.class);
         } catch (IllegalArgumentException ex) {
@@ -137,7 +145,7 @@ public class CJFM_MainConfig {
         }
     }
 
-    public List getList(CJFM_ConfigEntry entry) {
+    public static List getList(CJFM_ConfigEntry entry) {
         try {
             return get(entry, List.class);
         } catch (IllegalArgumentException ex) {
@@ -146,8 +154,8 @@ public class CJFM_MainConfig {
         return null;
     }
 
-    public <T> T get(CJFM_ConfigEntry entry, Class<T> type) throws IllegalArgumentException {
-        Object value = configEntryMap.get(entry);
+    public static <T> T get(CJFM_ConfigEntry entry, Class<T> type) throws IllegalArgumentException {
+        Object value = ENTRY_MAP.get(entry);
         try {
             return type.cast(value);
         } catch (ClassCastException ex) {
@@ -155,14 +163,14 @@ public class CJFM_MainConfig {
         }
     }
 
-    public <T> void set(CJFM_ConfigEntry entry, T value, Class<T> type) throws IllegalArgumentException {
+    public static <T> void set(CJFM_ConfigEntry entry, T value, Class<T> type) throws IllegalArgumentException {
         if (!type.isAssignableFrom(entry.getType())) {
             throw new IllegalArgumentException(entry.name() + " is not of type " + type.getSimpleName());
         }
         if (value != null && !type.isAssignableFrom(value.getClass())) {
             throw new IllegalArgumentException("Value is not of type " + type.getSimpleName());
         }
-        configEntryMap.put(entry, value);
+        ENTRY_MAP.put(entry, value);
     }
 
     private static void copyDefaultConfig(File targetFile) {
@@ -182,20 +190,24 @@ public class CJFM_MainConfig {
     }
 
     private static InputStream getDefaultConfig() {
-        return TotalFreedomMod.plugin.getResource(CONFIG_FILENAME);
+        return TotalFreedomMod.plugin.getResource(TotalFreedomMod.CONFIG_FILENAME);
     }
 
-    private static class CJFM_Config_DefaultsLoader {
+    public static TFM_Defaults getDefaults() {
+        return DEFAULTS;
+    }
+
+    public static class TFM_Defaults {
 
         private YamlConfiguration defaults = null;
 
-        private CJFM_Config_DefaultsLoader(InputStream defaultConfig) {
+        private TFM_Defaults(InputStream defaultConfig) {
             try {
                 defaults = new YamlConfiguration();
-                defaults.load(defaultConfig);
-            } catch (IOException ex) {
-                TFM_Log.severe(ex);
-            } catch (InvalidConfigurationException ex) {
+                final InputStreamReader isr = new InputStreamReader(defaultConfig);
+                defaults.load(isr);
+                isr.close();
+            } catch (IOException | InvalidConfigurationException ex) {
                 TFM_Log.severe(ex);
             }
         }
@@ -203,14 +215,5 @@ public class CJFM_MainConfig {
         public Object get(String path) {
             return defaults.get(path);
         }
-    }
-
-    public static CJFM_MainConfig getInstance() {
-        return CJFM_ConfigHolder.INSTANCE;
-    }
-
-    private static class CJFM_ConfigHolder {
-
-        private static final CJFM_MainConfig INSTANCE = new CJFM_MainConfig();
     }
 }

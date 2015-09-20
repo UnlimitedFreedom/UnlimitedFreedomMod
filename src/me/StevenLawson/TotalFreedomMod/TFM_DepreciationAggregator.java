@@ -20,7 +20,7 @@ public class TFM_DepreciationAggregator {
     public static OfflinePlayer getOfflinePlayer(Server server, String name) {
         return server.getOfflinePlayer(name);
     }
-    
+
     public static OfflinePlayer getOfflinePlayer(String name) {
         return Bukkit.getOfflinePlayer(name);
     }

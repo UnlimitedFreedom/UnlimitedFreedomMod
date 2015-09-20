@@ -16,7 +16,7 @@ public class Command_noob extends TFM_Command {
         }
 
         Player p = getPlayer(args[0]);
-        
+
         if (p == null) {
             playerMsg(TFM_Command.PLAYER_NOT_FOUND);
             return true;

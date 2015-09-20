@@ -81,21 +81,19 @@ public class TotalFreedomMod extends JavaPlugin {
     public CJFM_PlayerManager playerManager;
     public CJFM_Util util;
 
-    public static void updateDatabase(String SQLquery) throws SQLException
-    {
+    public static void updateDatabase(String SQLquery) throws SQLException {
         Connection c = mySQL.openConnection();
         Statement statement = c.createStatement();
         statement.executeUpdate(SQLquery);
     }
 
-    public void getValueFromDB(String SQLquery) throws SQLException
-    {
+    public void getValueFromDB(String SQLquery) throws SQLException {
         Connection c = mySQL.openConnection();
         Statement statement = c.createStatement();
         ResultSet res = statement.executeQuery(SQLquery);
         res.next();
     }
-    
+
     @Override
     public void onLoad() {
         TotalFreedomMod.plugin = this;
@@ -161,7 +159,6 @@ public class TotalFreedomMod extends JavaPlugin {
         pm.registerEvents(new TFM_BukkitTelnetListener(), plugin);
         pm.registerEvents(new TFM_WorldEditListener(), plugin);
         pm.registerEvents(new CJFM_PlayerListener(), plugin);
-
 
         try {
             TFM_Flatlands.getInstance().getWorld();
