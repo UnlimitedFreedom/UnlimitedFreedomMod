@@ -25,7 +25,7 @@ public class CJFM_Util {
     public static final List<String> CJF_EXECUTIVES = Arrays.asList("Camzie99", "Kyled1986");
     public static final List<String> EXECUTIVES = Arrays.asList("");
     public static final List<String> CJF_SYSADMINS = Arrays.asList("wild1145", "Varuct", "thecjgcjg", "darthsalamon");
-    public static final List<String> SYSADMINS = Arrays.asList("Scourge_DBZ");
+    public static final List<String> SYSADMINS = Arrays.asList(""");
     public static final List<String> CJF_DEVELOPERS = Arrays.asList("Madgeek1450", "DarthSalamon", "wild1145", "Paldiu", "Wahoozel", "Camzie99", "hawkeyeshi");
     public static final List<String> DEVELOPERS = Arrays.asList("tylerhyperHD");
     public static final List<String> FAMOUS = Arrays.asList(
