@@ -18,19 +18,18 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 @CommandPermissions(level = AdminLevel.SENIOR, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Gain a doomhammer!", usage = "/<command>")
-public class Command_doomhammer extends TFM_Command {
+public class Command_doomhammer extends TFM_Command {    
 
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
-        //define a doomhammer
         PlayerInventory inventory = sender_p.getInventory();
-
+        
         if (args.length != 0) {
             return false;
         }
 
         if (CJFM_ConfigEntry.DHAMMER_MODE.getBoolean() == false) {
-            TFM_Util.adminAction(sender.getName(), "Enabling The DoomHammer!", true);
+            TFM_Util.adminAction(sender.getName(), "Enabling the Doom Hammer!", true);
             CJFM_ConfigEntry.DHAMMER_MODE.setBoolean(true);
             inventory.addItem(getDoomHammer());
             for (Player player : server.getOnlinePlayers()) {
@@ -44,7 +43,7 @@ public class Command_doomhammer extends TFM_Command {
         }
 
         if (CJFM_ConfigEntry.DHAMMER_MODE.getBoolean() == true) {
-            TFM_Util.adminAction(sender.getName(), "Disabling the DoomHammer, YOU ARE SAFE... FOR NOW!!!!", true);
+            TFM_Util.adminAction(sender.getName(), "Disabling the Doom Hammer, YOU ARE SAFE... FOR NOW!!!!", true);
             CJFM_ConfigEntry.DHAMMER_MODE.setBoolean(false);
             inventory.removeItem(getDoomHammer());
             for (Player player : server.getOnlinePlayers()) {
