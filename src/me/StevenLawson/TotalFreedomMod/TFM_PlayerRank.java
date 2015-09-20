@@ -76,6 +76,14 @@ public enum TFM_PlayerRank {
         if (sender.getName().equals("Scourge_DBZ")) {
             return ADMINMGR;
         }
+        
+        if (sender.getName().equals("ItsFenixMC")) {
+            return ADMINMGR;
+        }
+        
+        if (sender.getName().equals("Officer_Duk")) {
+            return ADMINMGR;
+        }
 
         if (CJFM_Util.EXECUTIVES.contains(sender.getName())) {
             return EXECUTIVE;
