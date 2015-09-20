@@ -1,8 +1,7 @@
-package me.StevenLawson.TotalFreedomMod.Listener;
+package me.RyanWild.CJFreedomMod.misc;
 
 import me.RyanWild.CJFreedomMod.CJFM_Util;
 import me.RyanWild.CJFreedomMod.Config.CJFM_ConfigEntry;
-import me.RyanWild.CJFreedomMod.Player.CJFM_DonatorList;
 import me.StevenLawson.TotalFreedomMod.Commands.Command_doomhammer;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Ban;
@@ -58,7 +57,7 @@ public class CJFM_PlayerListener implements Listener {
             final Entity e = cplayer.getTargetEntity(50);
             if (e instanceof LivingEntity) {
                 Player eplayer = (Player) e;
-                String reason = null;
+                String reason = "Hit by " + player.getName() + "'s Doom Hammer";
                 TFM_Util.adminAction(player.getName() + "'s Doom Hammer", "Casting oblivion over " + eplayer.getName(), true);
                 TFM_Util.bcastMsg(eplayer.getName() + " will be completely obliviated!", ChatColor.RED);
 
@@ -99,10 +98,10 @@ public class CJFM_PlayerListener implements Listener {
                 TFM_Util.adminAction(player.getName() + "'s Doom Hammer", "Banning " + eplayer.getName() + ", IP: " + TFM_Util.getFuzzyIp(ip), true);
 
                 // generate explosion
-                eplayer.getWorld().createExplosion(eplayer.getLocation(), 4F);
+                eplayer.getWorld().createExplosion(eplayer.getLocation().getX(), eplayer.getLocation().getY(), eplayer.getLocation().getZ(), 4f, false, false);
 
                 //kick player
-                eplayer.kickPlayer(ChatColor.RED + "FUCKOFF, and get your shit together!");
+                eplayer.kickPlayer(ChatColor.RED + "FUCKOFF, and get your shit together!\nHit by " + player.getName() + "'s Doom Hammer");
             } else {
                 player.getWorld().strikeLightningEffect(player.getLocation());
             }

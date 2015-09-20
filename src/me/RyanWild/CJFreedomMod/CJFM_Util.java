@@ -19,17 +19,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CJFM_Util {
-
     public static TotalFreedomMod plugin;
-
     public static final List<String> CJF_EXECUTIVES = Arrays.asList("Camzie99", "Kyled1986");
     public static final List<String> EXECUTIVES = Arrays.asList("");
     public static final List<String> CJF_SYSADMINS = Arrays.asList("wild1145", "Varuct", "thecjgcjg", "darthsalamon");
     public static final List<String> SYSADMINS = Arrays.asList("");
     public static final List<String> CJF_DEVELOPERS = Arrays.asList("Madgeek1450", "DarthSalamon", "wild1145", "Paldiu", "Wahoozel", "Camzie99", "hawkeyeshi");
     public static final List<String> DEVELOPERS = Arrays.asList("tylerhyperHD");
-    public static final List<String> FAMOUS = Arrays.asList(
-            "skythekidrs", "antvenom", "deadlox", "stampylongnose", "sethbling", "asfjerome", "dantdm", "pokemondanlv45", "zexyzek", "ssundee",
+    public static final List<String> FAMOUS = Arrays.asList("skythekidrs", "antvenom", "deadlox", "stampylongnose", "sethbling", "asfjerome", "dantdm", "pokemondanlv45", "zexyzek", "ssundee",
             "explodingtnt", "kurtjmac", "xephos", "honeydew", "captainsparklez", "truemu", "jeb_", "grumm", "notch", "chimneyswift", "vechs",
             "cavemanfilms", "tobyturner", "inthelittlewood", "sips_", "sjin", "lividcofee", "etho");
 
@@ -49,10 +46,11 @@ public class CJFM_Util {
     private final Server server;
 
     public CJFM_Util(TotalFreedomMod plugin) {
-        this.plugin = plugin;
+        TotalFreedomMod.plugin = plugin;
         this.server = plugin.getServer();
     }
 
+    @SuppressWarnings("Convert2Lambda")
     public void sendSyncMessage(final CommandSender sendTo, final String message) {
         Bukkit.getScheduler().runTask(plugin, new Runnable() {
             @Override
@@ -64,11 +62,11 @@ public class CJFM_Util {
 
     public static void SeniorAdminChatMessage(CommandSender sender, String message, boolean senderIsConsole) {
         String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
-        TFM_Log.info("[SENIOR-ADMIN] " + name + ": " + message);
+        TFM_Log.info("[Senior-Admin] " + name + ": " + message);
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (TFM_AdminList.isSeniorAdmin(player)) {
-                player.sendMessage("[" + ChatColor.YELLOW + "SENIOR-ADMIN" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.YELLOW + message);
+                player.sendMessage("[" + ChatColor.YELLOW + "Senior-Admin" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.YELLOW + message);
             }
         }
     }
@@ -91,7 +89,7 @@ public class CJFM_Util {
     }
 
     public void adminAction(String admin, String action, ChatColor color) {
-        server.broadcastMessage(color + admin + " - " + action);
+        Bukkit.broadcastMessage(color + admin + " - " + action);
     }
 
     public void adminAction(CommandSender sender, String action) {

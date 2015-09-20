@@ -62,9 +62,7 @@ public class CJFM_MainConfig {
             }
         } catch (FileNotFoundException ex) {
             TFM_Log.severe(ex);
-        } catch (IOException ex) {
-            TFM_Log.severe(ex);
-        } catch (InvalidConfigurationException ex) {
+        } catch (IOException | InvalidConfigurationException ex) {
             TFM_Log.severe(ex);
         }
     }
@@ -165,6 +163,7 @@ public class CJFM_MainConfig {
         configEntryMap.put(entry, value);
     }
 
+    @SuppressWarnings("ConvertToTryWithResources")
     private static void copyDefaultConfig(File targetFile) {
         if (targetFile.exists()) {
             return;
@@ -185,6 +184,7 @@ public class CJFM_MainConfig {
         return TotalFreedomMod.plugin.getResource(CONFIG_FILENAME);
     }
 
+    @SuppressWarnings("deprecation")
     private static class CJFM_Config_DefaultsLoader {
 
         private YamlConfiguration defaults = null;
@@ -193,9 +193,7 @@ public class CJFM_MainConfig {
             try {
                 defaults = new YamlConfiguration();
                 defaults.load(defaultConfig);
-            } catch (IOException ex) {
-                TFM_Log.severe(ex);
-            } catch (InvalidConfigurationException ex) {
+            } catch (IOException | InvalidConfigurationException ex) {
                 TFM_Log.severe(ex);
             }
         }

@@ -1,4 +1,4 @@
-package me.StevenLawson.TotalFreedomMod.Listener;
+package me.RyanWild.CJFreedomMod.misc;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,11 +1,10 @@
-package me.StevenLawson.TotalFreedomMod.Listener;
+package me.RyanWild.CJFreedomMod.misc;
 
 import me.RyanWild.CJFreedomMod.CJFM_Addon;
 import me.RyanWild.CJFreedomMod.CJFM_Util;
-import me.RyanWild.CJFreedomMod.players.CJFM_PlayerManager;
+import me.RyanWild.CJFreedomMod.misc.CJFM_PlayerManager;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_BusyTagManager;
-import me.StevenLawson.TotalFreedomMod.TFM_PlayerData;
 import me.StevenLawson.TotalFreedomMod.TFM_TagManager;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import static me.StevenLawson.TotalFreedomMod.TotalFreedomMod.server;
