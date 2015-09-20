@@ -1,12 +1,13 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
+import me.StevenLawson.TotalFreedomMod.FOPM_TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TFM_CommandBlocker;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH, blockHostConsole = true)
+@CommandPermissions(level = AdminLevel.SENIOR, source = SourceType.BOTH, blockHostConsole = true)
 @CommandParameters(description = "Send a command as someone else.", usage = "/<command> <fromname> <outcommand>")
 public class Command_gcmd extends TFM_Command {
 
@@ -17,6 +18,11 @@ public class Command_gcmd extends TFM_Command {
         }
 
         final Player player = getPlayer(args[0]);
+
+        if (FOPM_TFM_Util.isHighRank(player)) {
+            sender.sendMessage("You cannot gcmd a high ranking admin.");
+            return true;
+        }
 
         if (player == null) {
             sender.sendMessage(TFM_Command.PLAYER_NOT_FOUND);

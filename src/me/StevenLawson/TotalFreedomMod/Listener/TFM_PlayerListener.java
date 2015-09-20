@@ -25,6 +25,7 @@ import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager.RollbackEntry;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_Sync;
+import me.StevenLawson.TotalFreedomMod.TFM_TagManager;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TFM_UuidManager;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
@@ -742,61 +743,8 @@ public class TFM_PlayerListener implements Listener {
         }
 
         //TODO: Cleanup
-        if (player.getName().equals("tylerhyperHD")) {
-            player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&8[&5Lead Developer&8]");
-            afterNameSet(player);
-        } else if (player.getName().equals("Scourge_DBZ")) {
-            player.setPlayerListName(ChatColor.DARK_AQUA + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&8[&3Admin Manager&8]");
-            afterNameSet(player);
-        } else if (TFM_Util.DEVELOPERS.contains(player.getName())) {
-            player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&8[&5TFM Developer&8]");
-            afterNameSet(player);
-        } else if (TFM_Util.UF_DEVELOPERS.contains(player.getName())) {
-            player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&8[&5Developer&8]");
-            afterNameSet(player);
-        } else if (TFM_AdminList.isSuperAdmin(player)) {
-            if (TFM_ConfigEntry.SERVER_OWNERS.getList().contains(player.getName())) {
-                player.setPlayerListName(ChatColor.BLUE + player.getName());
-                TFM_PlayerData.getPlayerData(player).setTag("&8[&9Owner&8]");
-                afterNameSet(player);
-            } else if (TFM_ConfigEntry.SERVER_COOWNERS.getList().contains(player.getName())) {
-                player.setPlayerListName(ChatColor.BLUE + player.getName());
-                TFM_PlayerData.getPlayerData(player).setTag("&8[&9Co-Owner&8]");
-                afterNameSet(player);
-            } else if (TFM_AdminList.isSeniorAdmin(player)) {
-                player.setPlayerListName(ChatColor.LIGHT_PURPLE + player.getName());
-                TFM_PlayerData.getPlayerData(player).setTag("&8[&dSenior Admin&8]");
-                afterNameSet(player);
-            } else if (TFM_AdminList.isTelnetAdmin(player, true)) {
-                player.setPlayerListName(ChatColor.DARK_GREEN + player.getName());
-                TFM_PlayerData.getPlayerData(player).setTag("&8[&2Telnet Admin&8]");
-                afterNameSet(player);
-            } else {
-                player.setPlayerListName(ChatColor.AQUA + player.getName());
-                TFM_PlayerData.getPlayerData(player).setTag("&8[&BSuper Admin&8]");
-                afterNameSet(player);
-            }
+        TFM_TagManager.onPlayerJoin(event);
         }
-    }
-
-    public static void afterNameSet(final Player player) {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (TFM_ConfigEntry.ADMIN_ONLY_MODE.getBoolean()) {
-                    player.sendMessage(ChatColor.RED + "Server is currently closed to non-superadmins.");
-                }
-
-                if (TotalFreedomMod.lockdownEnabled) {
-                    TFM_Util.playerMsg(player, "Warning: Server is currenty in lockdown-mode, new players will not be able to join!", ChatColor.RED);
-                }
-            }
-        }.runTaskLater(TotalFreedomMod.plugin, 20L * 1L);
-    }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {

@@ -1,10 +1,6 @@
 package me.StevenLawson.TotalFreedomMod.Listener;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import me.RyanWild.CJFreedomMod.CJFM_Util;
-import me.RyanWild.CJFreedomMod.CJFreedomMod;
 import me.RyanWild.CJFreedomMod.Config.CJFM_ConfigEntry;
 import me.RyanWild.CJFreedomMod.Player.CJFM_DonatorList;
 import me.StevenLawson.TotalFreedomMod.Commands.Command_doomhammer;
@@ -33,7 +29,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 public class CJFM_PlayerListener implements Listener {
@@ -45,26 +40,10 @@ public class CJFM_PlayerListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (TFM_AdminList.isSuperAdmin(player) && !player.getName().equalsIgnoreCase("varuct")) {
+        if (TFM_AdminList.isSuperAdmin(player)) {
             TFM_PlayerData.getPlayerData(player).setCommandSpy(true);
         }
-        if (CJFM_Util.FAMOUS.contains(player.getName().toLowerCase())) {
-            player.setPlayerListName("[Fake]" + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&8[&7Fake&8]");
-            TFM_Util.bcastMsg(":WARNING: " + player.getName() + " is completely and utterly FAKE! - This server is in Offline Mode so anybody can join as anyone!", ChatColor.RED);
-        } else if (CJFM_Util.SYSADMINS.contains(player.getName())) {
-            player.setPlayerListName(ChatColor.DARK_RED + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&8[&4System Administrator&8]");
-        } else if (CJFM_Util.EXECUTIVES.contains(player.getName())) {
-            player.setPlayerListName(ChatColor.BLUE + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&8[&9Executive&8]");
-        } else if (CJFM_DonatorList.isSeniorDonor(player)) {
-            player.setPlayerListName(ChatColor.GOLD + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&6[Senior Donator]");
-        } else if (CJFM_DonatorList.isSuperDonor(player)) {
-            player.setPlayerListName(ChatColor.YELLOW + player.getName());
-            TFM_PlayerData.getPlayerData(player).setTag("&e[Super Donator]");
-        }
+
     }
 
     @EventHandler
