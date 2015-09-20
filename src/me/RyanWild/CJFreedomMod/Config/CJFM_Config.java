@@ -2,8 +2,11 @@ package me.RyanWild.CJFreedomMod.Config;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -124,13 +127,16 @@ public class CJFM_Config extends YamlConfiguration // BukkitLib @ https://github
      *
      * @return The default configuration.
      */
+    @SuppressWarnings("ConvertToTryWithResources")
     public YamlConfiguration getDefaultConfig() {
         final YamlConfiguration DEFAULT_CONFIG = new YamlConfiguration();
         try {
-            DEFAULT_CONFIG.load(plugin.getResource(configFile.getName()));
-        } catch (Throwable ex) {
-            plugin.getLogger().severe("Could not load default CJFreedom Custom configuration: " + configFile.getName());
-            plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
+            final InputStreamReader isr = new InputStreamReader(plugin.getResource(configFile.getName()));
+            DEFAULT_CONFIG.load(isr);
+            isr.close();
+        } catch (IOException | InvalidConfigurationException ex) {
+            TFM_Log.severe("Could not load default configuration: " + configFile.getName());
+            TFM_Log.severe(org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex));
             return null;
         }
         return DEFAULT_CONFIG;

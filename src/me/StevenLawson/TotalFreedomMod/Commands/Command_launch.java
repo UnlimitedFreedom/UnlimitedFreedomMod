@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-@CommandPermissions(level = AdminLevel.OP, source = SourceType.BOTH)
+@CommandPermissions(level = AdminLevel.SENIOR, source = SourceType.BOTH)
 @CommandParameters(description = "Launch yourself!", usage = "/<command> [player] <strength>")
 public class Command_launch extends TFM_Command {
 
@@ -30,10 +30,6 @@ public class Command_launch extends TFM_Command {
         } else {
             player = Bukkit.getPlayer(sender.getName());
             strength = parseDouble(args[0]);
-        }
-        if (strength > 10) {
-            TFM_Util.playerMsg(sender, "Please use a strength value below 10!");
-            return true;
         }
         player.setVelocity(new Vector(0, strength, 0));
         return true;

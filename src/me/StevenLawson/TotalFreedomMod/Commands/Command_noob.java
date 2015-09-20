@@ -19,6 +19,7 @@ public class Command_noob extends TFM_Command {
         
         if (p == null) {
             playerMsg(TFM_Command.PLAYER_NOT_FOUND);
+            return true;
         }
 
         // strike with lightning effect:

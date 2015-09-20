@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.BOTH)
-@CommandParameters(description = "Developer Command Access", usage = "/<command> <Teston | Testoff>")
+@CommandParameters(description = "Developer Command Access", usage = "/<command> <teston | testoff>")
 public class Command_dev extends TFM_Command {
 
     @Override
@@ -26,7 +26,7 @@ public class Command_dev extends TFM_Command {
                 }
 
                 if (args[0].equalsIgnoreCase("testoff")) {
-                    TFM_Util.adminAction("FINISHED: " + sender.getName(), "Has finished server side testing", true);
+                    TFM_Util.adminAction("FINISHED: " + sender.getName(), "Has finished server-side testing", true);
                     CJFM_ConfigEntry.DEVELOPMENT_MODE.setBoolean(false);
                     return true;
                 }

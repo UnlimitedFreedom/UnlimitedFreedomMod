@@ -514,12 +514,9 @@ public class TFM_PlayerListener implements Listener {
             }
 
             // Strip color from messages
-            if (!TFM_AdminList.isSuperAdmin(player))
-            {
+            if (!TFM_AdminList.isSuperAdmin(player)) {
                 message = ChatColor.stripColor(message);
-            }
-            else
-            {
+            } else {
                 message = message.replaceAll("&", "§");
             }
 
@@ -748,6 +745,10 @@ public class TFM_PlayerListener implements Listener {
         if (player.getName().equals("tylerhyperHD")) {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[&5Lead Developer&8]");
+            afterNameSet(player);
+        } else if (player.getName().equals("Scourge_DBZ")) {
+            player.setPlayerListName(ChatColor.DARK_AQUA + player.getName());
+            TFM_PlayerData.getPlayerData(player).setTag("&8[&3Admin Manager&8]");
             afterNameSet(player);
         } else if (TFM_Util.DEVELOPERS.contains(player.getName())) {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());

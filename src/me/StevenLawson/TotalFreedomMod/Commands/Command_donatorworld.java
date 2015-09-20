@@ -1,5 +1,6 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
+import me.RyanWild.CJFreedomMod.Player.CJFM_DonatorList;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.World.CJFM_DonatorWorld;
@@ -8,7 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandPermissions(level = AdminLevel.SUPERDONATOR, source = SourceType.BOTH)
+@CommandPermissions(level = AdminLevel.OP, source = SourceType.BOTH)
 @CommandParameters(description = "Go to the Donator World.", usage = "/<command> [guest < list | purge | add <player> | remove <player> > | time <morning | noon | evening | night> | weather <off | on | storm>]")
 public class Command_donatorworld extends TFM_Command {
 
@@ -152,7 +153,7 @@ public class Command_donatorworld extends TFM_Command {
     }
 
     private void assertCommandPerms(CommandSender sender, Player sender_p) throws PermissionDeniedException {
-        if (!(sender instanceof Player) || sender_p == null || !TFM_AdminList.isSuperAdmin(sender)) {
+        if (!(sender instanceof Player) || sender_p == null || !CJFM_DonatorList.isSuperDonor(sender)) {
             throw new PermissionDeniedException(TFM_Command.MSG_NO_PERMS);
         }
     }

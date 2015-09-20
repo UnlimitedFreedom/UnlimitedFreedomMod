@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import me.RyanWild.CJFreedomMod.CJFM_Util;
@@ -59,6 +61,9 @@ public class TotalFreedomMod extends JavaPlugin {
     public static final String UUID_FILENAME = "uuids.db";
     public static final String PROTECTED_AREA_FILENAME = "protectedareas.dat";
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
+    //
+    // Add a camzie99 fix for CJFreedom stuff
+    public static List<String> exploded = new ArrayList<String>();
     //
     public static final BuildProperties build = new BuildProperties();
     @Deprecated

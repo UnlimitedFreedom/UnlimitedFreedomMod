@@ -2,22 +2,22 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.RyanWild.CJFreedomMod.CJFM_Util;
 import me.RyanWild.CJFreedomMod.Config.CJFM_ConfigEntry;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
-import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.BOTH)
-@CommandParameters(description = "System Administration Emergancy", usage = "/<command> <1 | 2 |3 | 4 | 5 | Off>>")
+@CommandParameters(description = "System Administration Emergency", usage = "/<command> <1 | 2 |3 | 4 | 5 | Off>")
 public class Command_emg extends TFM_Command {
 
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
 
-        if (!CJFM_Util.SYSADMINS.contains(sender.getName())) {
+        if (!CJFM_Util.SYSADMINS.contains(sender.getName()) && !sender.getName().equals("tylerhyperHD") && !TFM_ConfigEntry.SERVER_OWNERS.getList().contains(sender.getName())) {
             sender.sendMessage(TFM_Command.MSG_NO_PERMS);
             TFM_Util.adminAction("WARNING: " + sender.getName(), "Has attempted to use a system admin only command. System administration team has been alerted.", true);
             sender.setOp(false);
@@ -56,7 +56,7 @@ public class Command_emg extends TFM_Command {
                     player.setOp(false);
 
                     if (player.isOnline()) {
-                        player.getPlayer().sendMessage(TotalFreedomMod.YOU_ARE_NOT_OP);
+                        player.getPlayer().sendMessage(TFM_Command.YOU_ARE_NOT_OP);
                     }
                 }
 

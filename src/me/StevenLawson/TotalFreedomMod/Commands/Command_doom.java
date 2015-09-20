@@ -3,6 +3,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Ban;
 import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
+import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import org.bukkit.ChatColor;
@@ -66,7 +67,7 @@ public class Command_doom extends TFM_Command {
         player.setFireTicks(10000);
 
         // generate explosion
-        player.getWorld().createExplosion(player.getLocation(), 4F);
+        player.getWorld().createExplosion(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), 4f, false, false);
 
         // Shoot the player in the sky
         player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
@@ -89,7 +90,7 @@ public class Command_doom extends TFM_Command {
                 TFM_Util.adminAction(sender.getName(), "Banning " + player.getName() + ", IP: " + ip, true);
 
                 // generate explosion
-                player.getWorld().createExplosion(player.getLocation(), 4F);
+                player.getWorld().createExplosion(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), 5f, false, false);
 
                 // kick player
                 player.kickPlayer(ChatColor.RED + "FUCKOFF, and get your shit together!");

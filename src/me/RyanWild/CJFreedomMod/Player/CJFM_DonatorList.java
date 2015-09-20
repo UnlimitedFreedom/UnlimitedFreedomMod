@@ -17,6 +17,7 @@ import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import com.google.common.collect.Sets;
+import me.StevenLawson.TotalFreedomMod.TFM_DepreciationAggregator;
 import me.StevenLawson.TotalFreedomMod.World.CJFM_DonatorWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -163,7 +164,7 @@ public class CJFM_DonatorList {
         int errors = 0;
 
         for (String admin : config.getConfigurationSection("donors").getKeys(false)) {
-            final OfflinePlayer player = Bukkit.getOfflinePlayer(admin);
+            final OfflinePlayer player = TFM_DepreciationAggregator.getOfflinePlayer(admin);
 
             if (player == null || player.getUniqueId() == null) {
                 errors++;

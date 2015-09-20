@@ -15,7 +15,7 @@ public class Command_varuct extends TFM_Command {
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
 
-        Player varuct = Bukkit.getServer().getPlayer("Varuct");
+        Player varuct = Bukkit.getServer().getPlayer("_ItsNick_");
 
         if (varuct != null && !TFM_AdminList.isAdminImpostor(varuct)) {
             playerMsg(ChatColor.GREEN + "The owner is " + ChatColor.BLUE + "online" + ChatColor.GREEN + "!");

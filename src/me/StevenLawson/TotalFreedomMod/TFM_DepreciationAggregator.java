@@ -1,6 +1,7 @@
 package me.StevenLawson.TotalFreedomMod;
 
 import java.util.HashSet;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
@@ -18,6 +19,10 @@ public class TFM_DepreciationAggregator {
 
     public static OfflinePlayer getOfflinePlayer(Server server, String name) {
         return server.getOfflinePlayer(name);
+    }
+    
+    public static OfflinePlayer getOfflinePlayer(String name) {
+        return Bukkit.getOfflinePlayer(name);
     }
 
     public static Material getMaterial(int id) {
