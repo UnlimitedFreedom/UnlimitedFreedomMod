@@ -1,5 +1,6 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -84,7 +85,7 @@ public class Command_logs extends TFM_Command {
                             }
                         }.runTask(TotalFreedomMod.plugin);
                     }
-                } catch (Exception ex) {
+                } catch (IOException | IllegalArgumentException | IllegalStateException ex) {
                     TFM_Log.severe(ex);
                 }
             }

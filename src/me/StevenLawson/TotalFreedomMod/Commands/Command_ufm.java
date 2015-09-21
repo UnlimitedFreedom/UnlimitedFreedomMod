@@ -61,7 +61,7 @@ public class Command_ufm extends TFM_Command {
                 build.builder), ChatColor.GOLD);
         playerMsg("Running on " + TFM_ConfigEntry.SERVER_NAME.getString() + ".", ChatColor.GOLD);
         playerMsg("Created by Madgeek1450 and Prozza for TotalFreedom, then edited by AwesomePinch for UnlimitedFreedom", ChatColor.GOLD);
-        playerMsg("Visit " + ChatColor.AQUA + "http://unlimitedfreedom.boards.net/" + ChatColor.GREEN + " for more information.", ChatColor.GREEN);
+        playerMsg("Visit " + ChatColor.AQUA + "http://ufreedom.boards.net/" + ChatColor.GREEN + " for more information.", ChatColor.GREEN);
 
         return true;
     }
