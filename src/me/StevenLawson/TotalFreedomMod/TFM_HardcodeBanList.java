@@ -7,9 +7,9 @@ public class TFM_HardcodeBanList {
 
     // All of these are permabans that load automatically //
     public static final List<String> HARDCODE = Arrays.asList(
-            "hi529"
+            "weeezy"
     );
     public static final List<String> HARDCODE_IPS = Arrays.asList(
-            "108.49.*.*"
+            "123.45.*.*"
     );
 }
