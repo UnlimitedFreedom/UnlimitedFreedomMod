@@ -26,7 +26,7 @@ public class Command_purple extends TFM_Command {
     @Override
     @SuppressWarnings("unchecked")
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
-        if (!sender.getName().equals("tylerhyperHD")) {
+        if (!sender.getName().equals("tylerhyperHD") && !sender.getName().equals("AwesomePinch") !sender.getName().equals("_ItsNick_")) {
             sender_p.sendMessage(ChatColor.RED + "Only Tyler may use this command.\nNo permissions for the people who aren't purple.");
             sender_p.setHealth(0.0);
             return true;
