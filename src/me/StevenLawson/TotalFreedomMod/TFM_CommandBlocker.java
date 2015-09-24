@@ -62,7 +62,7 @@ public class TFM_CommandBlocker {
 
             // Obtain command from alias
             if (command == null) {
-                TFM_Log.info("Blocking unknown command: /" + commandName);
+                // TFM_Log.info("Blocking unknown command: /" + commandName);
             } else {
                 commandName = command.getName().toLowerCase();
             }
