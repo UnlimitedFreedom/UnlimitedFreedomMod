@@ -1,5 +1,6 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
+import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,6 +13,10 @@ public class Command_admininfo extends TFM_Command {
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
         if (args.length == 0) {
+            if (TFM_ConfigEntry.ADMINAPPS_CLOSED.getBoolean()) {
+                sender.sendMessage(ChatColor.RED + "Unfortunately, apps are closed at the moment!");
+                return true;
+            }
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "You wish to apply for admin do you?");
             sender.sendMessage(ChatColor.RED + "Well, first of all you need to register a forum account at http://ufreedom.boards.net");
             sender.sendMessage(ChatColor.AQUA + "Then, copy the template at http://ufreedom.boards.net/thread/3/application-super-admin-status-carefully");
