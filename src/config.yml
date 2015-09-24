@@ -24,7 +24,7 @@ server:
 
   # All players who show up as coowner
   coowners:
-    - Missy_Cathy
+    - CRSmileGirl
     - SlayBuzz
 
   # URL players should appeal for bans at
